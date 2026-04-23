@@ -1,0 +1,130 @@
+{% requires_value donations.highest_previous_all %}
+<!--
+  Donation Array — Tier 3: Personalized to donor history
+  Each recipient sees three buttons built from their highest prior donation:
+    Button 1: exact prior amount
+    Button 2: 1.5x prior amount (rounded to integer)
+    Button 3: 2x prior amount (rounded to integer)
+
+  Recipients with no prior donation history are suppressed cleanly by the
+  {% requires_value %} tag above — AK will not render this block for them.
+
+  One CMF required:
+    donation_page_slug — AK donation page name (reuse from Tier 2 if already created)
+
+  No amount CMFs needed — amounts are computed from donations.highest_previous_all.
+-->
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto; width: 100%; max-width: 600px;">
+  <tr>
+
+    <!-- Button 1: exact prior amount -->
+    <td align="center" valign="top" style="padding: 0 4px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|floatformat:"0" }}&amp;prefill=1"
+        style="height:48px; v-text-anchor:middle; width:180px;"
+        arcsize="8%"
+        stroke="f"
+        fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">${{ donations.highest_previous_all|floatformat:"0" }}</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|floatformat:"0" }}&amp;prefill=1"
+         target="_blank"
+         rel="noopener"
+         style="
+           background-color: #1a57c2;
+           border-radius: 4px;
+           color: #ffffff;
+           display: inline-block;
+           font-family: Helvetica, Arial, sans-serif;
+           font-size: 16px;
+           font-weight: bold;
+           line-height: 48px;
+           min-height: 48px;
+           padding: 0 20px;
+           text-align: center;
+           text-decoration: none;
+           -webkit-text-size-adjust: none;
+           mso-hide: all;
+         ">${{ donations.highest_previous_all|floatformat:"0" }}</a>
+      <!--<![endif]-->
+    </td>
+
+    <!-- Button 2: 1.5x prior amount -->
+    <td align="center" valign="top" style="padding: 0 4px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|multiply:"1.5"|floatformat:"0" }}&amp;prefill=1"
+        style="height:48px; v-text-anchor:middle; width:180px;"
+        arcsize="8%"
+        stroke="f"
+        fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">${{ donations.highest_previous_all|multiply:"1.5"|floatformat:"0" }}</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|multiply:"1.5"|floatformat:"0" }}&amp;prefill=1"
+         target="_blank"
+         rel="noopener"
+         style="
+           background-color: #1a57c2;
+           border-radius: 4px;
+           color: #ffffff;
+           display: inline-block;
+           font-family: Helvetica, Arial, sans-serif;
+           font-size: 16px;
+           font-weight: bold;
+           line-height: 48px;
+           min-height: 48px;
+           padding: 0 20px;
+           text-align: center;
+           text-decoration: none;
+           -webkit-text-size-adjust: none;
+           mso-hide: all;
+         ">${{ donations.highest_previous_all|multiply:"1.5"|floatformat:"0" }}</a>
+      <!--<![endif]-->
+    </td>
+
+    <!-- Button 3: 2x prior amount -->
+    <td align="center" valign="top" style="padding: 0 4px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }}&amp;prefill=1"
+        style="height:48px; v-text-anchor:middle; width:180px;"
+        arcsize="8%"
+        stroke="f"
+        fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">${{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }}</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }}&amp;prefill=1"
+         target="_blank"
+         rel="noopener"
+         style="
+           background-color: #1a57c2;
+           border-radius: 4px;
+           color: #ffffff;
+           display: inline-block;
+           font-family: Helvetica, Arial, sans-serif;
+           font-size: 16px;
+           font-weight: bold;
+           line-height: 48px;
+           min-height: 48px;
+           padding: 0 20px;
+           text-align: center;
+           text-decoration: none;
+           -webkit-text-size-adjust: none;
+           mso-hide: all;
+         ">${{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }}</a>
+      <!--<![endif]-->
+    </td>
+
+  </tr>
+</table>
+{% endrequires_value %}
