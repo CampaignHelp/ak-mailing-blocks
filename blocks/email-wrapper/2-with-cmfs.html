@@ -1,0 +1,72 @@
+<!--
+  Email Wrapper — Tier 2: Email Wrapper Fields (CMFs)
+  Install via: Mailings tab > Email Wrappers > Add email wrapper > paste into Template box.
+
+  IMPORTANT: Before this wrapper will work, you must create four Email Wrapper Fields on
+  the wrapper itself (not Custom Mailing Fields). These use the wrapper_custom_fields.*
+  namespace — NOT custom_fields.* — which is specific to Email Wrapper entities in AK.
+
+  Required Email Wrapper Fields (all type: Text):
+    - brand_logo_url         — full URL to your org's logo image
+    - brand_color            — hex color for the accent bar (e.g. #1a57c2)
+    - footer_org_name        — your org's display name (appears in logo alt text and footer)
+    - footer_mailing_address — your org's legal mailing address
+
+  Set field values at the bottom of the wrapper edit screen, under "Email Wrapper Field Values."
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+  <title></title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f0f0f0; color: #222222; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+
+  {% if preview_text %}<span style="display:none;font-size:0px;color:#fff;line-height:0px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">{{ preview_text }}</span>{% endif %}
+
+  <!-- Outer table: full-width background -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f0f0f0;">
+    <tr>
+      <td align="center" style="padding: 24px 0;">
+
+        <!-- Inner table: constrained to 600px -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="width: 600px; background-color: #ffffff;">
+
+          <!-- Header row: logo -->
+          <tr>
+            <td align="center" style="padding: 24px; background-color: #ffffff;">
+              <img src="{{ wrapper_custom_fields.brand_logo_url }}" alt="{{ wrapper_custom_fields.footer_org_name }}" width="180" style="display: block; height: auto; max-width: 100%;">
+            </td>
+          </tr>
+
+          <!-- Brand accent bar -->
+          <tr>
+            <td style="background-color: {{ wrapper_custom_fields.brand_color }}; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+          </tr>
+
+          <!-- Main content area -->
+          <tr>
+            <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222222; background-color: #ffffff;">
+              {% block content %}{% endblock content %}
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #666666; background-color: #f5f5f5; text-align: center;">
+              <p style="margin: 0 0 12px 0;">{{ wrapper_custom_fields.footer_org_name }}<br>{{ wrapper_custom_fields.footer_mailing_address }}</p>
+              <p style="margin: 0;">{% include "unsubscribe.html" %}</p>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
