@@ -1,0 +1,66 @@
+<!--
+  Email Wrapper — Tier 1: Paste and go
+  Install via: Mailings tab > Email Wrappers > Add email wrapper > paste into Template box.
+
+  Four things to edit before saving:
+    1. [LOGO_URL]        — swap https://example.org/logo.png with your actual logo URL
+    2. [ORG_NAME]        — replace "Your Organization" with your org's name (appears in logo alt text and footer)
+    3. [MAILING_ADDRESS] — replace the placeholder address with your org's legal mailing address
+    4. [BRAND_COLOR]     — replace #1a57c2 with your brand hex color (the accent bar under the logo)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+  <title></title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f0f0f0; color: #222222; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+
+  {% if preview_text %}<span style="display:none;font-size:0px;color:#fff;line-height:0px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">{{ preview_text }}</span>{% endif %}
+
+  <!-- Outer table: full-width background -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f0f0f0;">
+    <tr>
+      <td align="center" style="padding: 24px 0;">
+
+        <!-- Inner table: constrained to 600px -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="width: 600px; background-color: #ffffff;">
+
+          <!-- Header row: logo -->
+          <tr>
+            <td align="center" style="padding: 24px; background-color: #ffffff;">
+              <img src="https://example.org/logo.png" alt="Your Organization" width="180" style="display: block; height: auto; max-width: 100%;">
+            </td>
+          </tr>
+
+          <!-- Brand accent bar -->
+          <tr>
+            <td style="background-color: #1a57c2; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+          </tr>
+
+          <!-- Main content area -->
+          <tr>
+            <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222222; background-color: #ffffff;">
+              {% block content %}{% endblock content %}
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #666666; background-color: #f5f5f5; text-align: center;">
+              <p style="margin: 0 0 12px 0;">Your Organization<br>123 Your Street, Your City, ST 00000</p>
+              <p style="margin: 0;">{% include "unsubscribe.html" %}</p>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
