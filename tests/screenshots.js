@@ -10,7 +10,6 @@
 //   cd ~/.claude/skills/playwright-skill && node run.js <repo>/tests/screenshots.js
 
 const { chromium } = require('playwright');
-const fs = require('node:fs');
 const fsp = require('node:fs/promises');
 const path = require('node:path');
 
@@ -123,9 +122,7 @@ async function renderOne(browser, target) {
 
   await page.setContent(html, { waitUntil: 'networkidle' });
 
-  if (!fs.existsSync(target.outDir)) {
-    await fsp.mkdir(target.outDir, { recursive: true });
-  }
+  await fsp.mkdir(target.outDir, { recursive: true });
   const outPath = path.join(target.outDir, target.outFile);
   await page.screenshot({ path: outPath, fullPage: true });
   await context.close();
