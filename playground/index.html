@@ -396,6 +396,8 @@ ${buttons}
   }
 
   function buildPreviewDoc(blockHtml) {
+    // Un-escape &amp; → & in hrefs: the generated HTML uses &amp; for code-output
+    // validity, but the live preview iframe needs bare & in query strings.
     return `<!DOCTYPE html>
 <html>
 <head>
@@ -411,13 +413,6 @@ ${blockHtml.replace(/&amp;/g, '&')}
 </div>
 </body>
 </html>`;
-  }
-
-  function escapeHtml(str) {
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
   }
 
   function render() {
