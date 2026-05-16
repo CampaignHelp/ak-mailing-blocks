@@ -89,8 +89,6 @@ Your AK admin creates these once in **Mailings tab → Custom Mailing Fields →
 | `cta_button_bg_color` | Text | `#1a57c2` |
 | `cta_button_text_color` | Text | `#ffffff` |
 
-![CMF admin screenshot placeholder](./screenshots/cta-cmf-admin.png)
-
 **Field name tip:** AK field names are case-sensitive and must match exactly what's in the HTML. Use the names above as-is.
 
 ### The HTML
