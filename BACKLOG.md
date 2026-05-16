@@ -30,11 +30,10 @@ Blocks that have moved out of the backlog and into `blocks/`.
 
 - cta-button (tier 1, 2)
 - donation-array (tier 1, 2, 3)
-- preheader (tier 1, 2)
 - email-wrapper (tier 1, 2)
 
 ## Won't build
 
 Ideas considered and intentionally declined. Keep these so the same idea doesn't keep getting re-proposed.
 
-_(empty)_
+- **preheader** — AK handles preview text natively. The Compose screen has a dedicated preview text field below the subject line, and AK exposes `{{ preview_text }}` as a template variable inside wrappers. Our `email-wrapper` block already includes the `{% if preview_text %}` conditional, so any org using it gets preview text "for free" by typing in the Compose-screen field. A standalone preheader block would only matter for orgs on legacy or third-party wrappers without preview text support — too narrow to maintain.

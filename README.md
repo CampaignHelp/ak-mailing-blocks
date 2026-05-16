@@ -8,7 +8,7 @@
 
 ## What this is
 
-ActionKit's Compose screen lets you paste raw HTML into your mailing body. This repo is a library of tested HTML blocks that do things the default editor doesn't — a proper donation button array, a bulletproof CTA button that renders in Outlook, a preheader line that shows up in Gmail previews, and a complete dark-mode-safe email wrapper.
+ActionKit's Compose screen lets you paste raw HTML into your mailing body. This repo is a library of tested HTML blocks that do things the default editor doesn't — a proper donation button array, a bulletproof CTA button that renders in Outlook, and a complete dark-mode-safe email wrapper.
 
 Each block ships in tiers so your whole team can use it. The simplest tier is plain HTML — paste it in and change the text. More advanced tiers wire the block to ActionKit's Custom Mailing Fields so a less-technical teammate can update amounts, colors, and labels from the AK admin without ever touching HTML.
 
@@ -28,8 +28,7 @@ Not every block has all three tiers. Tier 1 always exists. Tiers 2 and 3 are off
 |---|---|---|
 | [`blocks/cta-button`](blocks/cta-button/README.md) | Outlook-safe HTML call-to-action button with customizable label, URL, and color. | 1, 2 |
 | [`blocks/donation-array`](blocks/donation-array/README.md) | Three-button donation ask with amounts that can adapt to each recipient's giving history. | 1, 2, 3 |
-| [`blocks/preheader`](blocks/preheader/README.md) | Hidden preview-text block that controls what subscribers see in their inbox before opening. | 1, 2 |
-| [`blocks/email-wrapper`](blocks/email-wrapper/README.md) | Dark-mode-safe HTML email wrapper, installed via AK's Email Wrappers admin. | 1, 2 |
+| [`blocks/email-wrapper`](blocks/email-wrapper/README.md) | Dark-mode-safe HTML email wrapper, installed via AK's Email Wrappers admin. Includes built-in preview text support. | 1, 2 |
 
 ## Tested on
 

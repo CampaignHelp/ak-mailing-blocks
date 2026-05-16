@@ -24,7 +24,7 @@ const EMAIL_WIDTH = 600;
 const CANVAS_BG = '#f0f0f0';
 const PADDING = 24;
 
-const SKIP_BLOCKS = new Set(['_TEMPLATE', 'preheader']);
+const SKIP_BLOCKS = new Set(['_TEMPLATE']);
 const TIER_1_PATTERN = /^1-/;
 
 function wrapFragment(fragment) {
