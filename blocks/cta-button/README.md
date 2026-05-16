@@ -4,7 +4,7 @@
 
 A single call-to-action button that renders correctly in Outlook (Windows), Gmail, Apple Mail, and on mobile — no images, no CSS tricks, just a solid-colored table-based button your recipients can tap even with images blocked.
 
-![CTA button rendered screenshot placeholder](./screenshots/cta-button-render.png)
+![Tier-1 CTA button rendered on a white email canvas, blue rounded button reading "Take action"](./screenshots/1-basic.png)
 
 ---
 

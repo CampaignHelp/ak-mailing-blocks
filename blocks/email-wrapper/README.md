@@ -6,6 +6,8 @@ Email wrappers are ActionKit's way of defining the header, footer, and outer she
 
 This wrapper is table-based with all inline styles, and explicitly declares a light color scheme so it renders consistently in dark-mode email clients that would otherwise invert your colors.
 
+![Tier-1 email wrapper rendered with sample content: header logo, brand accent bar, body paragraphs, gray footer with org name, address, and unsubscribe link](./screenshots/1-basic.png)
+
 ---
 
 ## Install walkthrough (Tier 1)
