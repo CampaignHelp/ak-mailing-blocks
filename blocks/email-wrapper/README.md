@@ -27,6 +27,10 @@ This wrapper is table-based with all inline styles, and explicitly declares a li
 9. Save
 10. On the Compose screen of a mailing, select your new wrapper from the **Email wrapper** dropdown
 
+### Preview text is included
+
+This wrapper renders AK's built-in `{{ preview_text }}` variable in a hidden span at the top of the email — the same trick most senders use to control the inbox preview snippet in Gmail, Apple Mail, and iOS Mail. Type your preview text in the dedicated **Preview Text** field on the Compose screen (below the subject line) and AK injects it for you. No paste-in HTML needed, no Custom Mailing Field to maintain.
+
 ---
 
 ## Tier 2: Let your team edit branding without touching code
