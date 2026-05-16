@@ -10,6 +10,12 @@
 
 ActionKit's Compose screen lets you paste raw HTML into your mailing body. This repo is a library of tested HTML blocks that do things the default editor doesn't — a proper donation button array, a bulletproof CTA button that renders in Outlook, and a complete dark-mode-safe email wrapper.
 
+## Try it
+
+The fastest way to use these blocks: open the **[interactive playground](https://campaignhelp.github.io/ak-mailing-blocks/playground/)**, tweak the colors and copy in your AK subdomain, then click "Copy HTML" and paste straight into your mailing. No git clone, no edit-point hunting in HTML comments.
+
+Currently covers the donation array. CTA button and email wrapper coming next.
+
 Each block ships in tiers so your whole team can use it. The simplest tier is plain HTML — paste it in and change the text. More advanced tiers wire the block to ActionKit's Custom Mailing Fields so a less-technical teammate can update amounts, colors, and labels from the AK admin without ever touching HTML.
 
 ## The tier model
