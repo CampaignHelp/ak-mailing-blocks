@@ -28,12 +28,11 @@ A candidate is ready to promote out of the backlog when:
   - **Why we'd build it:** Surfaces the action above the fold visually without forcing the reader to scroll past body copy first. Common pattern in newsletters and policy alerts. Many orgs rebuild this from scratch every send.
   - **Open questions:** Mobile behavior — stack below body copy at narrow widths (typical), or stay aligned and let body copy reflow next to it? Mobile-stacking is the safer email pattern; needs media queries + Gmail-friendly fallback.
 
-- **playground** — Interactive web page (`playground/index.html`) where users tweak knobs visually (color picker, copy fields, amounts) and copy the resulting HTML. Hosted on GitHub Pages once the repo flips public, at `https://campaignhelp.github.io/ak-mailing-blocks/playground/`. Pure HTML + vanilla JS, no build step. Live preview in an iframe so styles don't bleed. Big "Copy HTML" button.
-  - **Who edits it:** end users — anyone who wants HTML to paste into an AK mailing, no AK admin or developer required for tier-1 blocks
-  - **Tier ambition:** N/A — playground is meta-infrastructure, not a block
-  - **Why we'd build it:** Closes the biggest UX gap in the repo. Tier 1 currently requires hunting through HTML comments to find edit points; tier 2 helps existing AK admins but does nothing for first-time visitors. A playground gives anyone an instant preview + copy without touching code.
-  - **Plan:** Start with donation-array as the proof of concept (most complex — amounts, colors, button widths, URL patterns). If the UX works there, duplicate the pattern for cta-button and email-wrapper.
-  - **Future:** Once playground UX is validated, the "brand tokens via Email Wrapper Fields" idea becomes more powerful — playground can offer a "set my brand" mode that exports the wrapper-level config alongside per-block snippets.
+- **playground (cta-button)** — Mirror the donation-array playground pattern for cta-button: tweak label, URL, brand color, text color; live preview iframe; copy-HTML button. Reuse the same layout and `buildHtml` substitution approach from `playground/index.html`. Add a tab/section switcher so users can move between blocks without reloading.
+
+- **playground (email-wrapper)** — Same pattern for email-wrapper, but with brand tokens (primary color, accent color, logo URL, org name, address) and a sample body content area. More involved than the smaller blocks because the wrapper IS the brand definition for an org.
+
+- **brand-tokens via Email Wrapper Fields** — Refactor existing blocks to read brand colors and font from `{{ wrapper_custom_fields.brand_primary_color }}` etc. instead of hardcoding per-block. One change in AK updates every send. Highest-leverage long-term move; requires updating every block, so wait until the playground UX is settled first.
 
 - **cta-line** — Inline CTA row with a headline and a button, no image. Lighter visual weight than a full hero CTA, good for mid-body reminders or secondary asks
   - **Who edits it:** developer at tier 1; AK admin at tier 2 (CMFs for headline, button label, button URL, optionally subhead)
@@ -46,8 +45,14 @@ A candidate is ready to promote out of the backlog when:
 Blocks that have moved out of the backlog and into `blocks/`.
 
 - cta-button (tier 1, 2)
-- donation-array (tier 1, 2, 3)
-- email-wrapper (tier 1, 2)
+- donation-array (tier 1, 2, 3) — tighter spacing, uniform 140px buttons
+- email-wrapper (tier 1, 2) — includes built-in preview text support
+
+## Shipped — tooling
+
+- **Public repo launch** — flipped public 2026-05-16, hosted under the CampaignHelp org, linked from awesome-actionkit
+- **Screenshot pipeline** — `tests/screenshots.js` renders all tier-1 blocks via Playwright into each block's `screenshots/` folder
+- **Playground (donation-array)** — live at https://campaignhelp.github.io/ak-mailing-blocks/playground/. Vanilla JS, no build. Proof of concept for the broader playground roadmap.
 
 ## Won't build
 
