@@ -4,7 +4,7 @@
 
 A row of three donation buttons that links each one to an ActionKit donation page with the amount pre-filled. All three buttons use the bulletproof table+VML pattern, so they render correctly in Outlook Windows, Gmail, Apple Mail, and on mobile even with images blocked.
 
-![Donation array rendered screenshot placeholder](./screenshots/donation-array-render.png)
+![Tier-1 donation array rendered on a white email canvas, three blue buttons reading $25, $50, $100](./screenshots/1-basic.png)
 
 ---
 
