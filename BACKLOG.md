@@ -22,12 +22,6 @@ A candidate is ready to promote out of the backlog when:
 
 ## Candidates
 
-- **callout-box** — Right-aligned floating callout with a title, image, and button so the CTA is visible at a glance while body copy wraps around it
-  - **Who edits it:** developer at tier 1; AK admin at tier 2 (CMFs for title, image URL, button label, button URL, brand color — ~5 fields)
-  - **Tier ambition:** 1+2
-  - **Why we'd build it:** Surfaces the action above the fold visually without forcing the reader to scroll past body copy first. Common pattern in newsletters and policy alerts. Many orgs rebuild this from scratch every send.
-  - **Open questions:** Mobile behavior — stack below body copy at narrow widths (typical), or stay aligned and let body copy reflow next to it? Mobile-stacking is the safer email pattern; needs media queries + Gmail-friendly fallback.
-
 - **brand-tokens via Email Wrapper Fields** — Refactor existing blocks to read brand colors and font from `{{ wrapper_custom_fields.brand_primary_color }}` etc. instead of hardcoding per-block. One change in AK updates every send. Highest-leverage long-term move; requires updating every block, so wait until the playground UX is settled first.
 
 - **cta-line** — Inline CTA row with a headline and a button, no image. Lighter visual weight than a full hero CTA, good for mid-body reminders or secondary asks
@@ -41,6 +35,7 @@ A candidate is ready to promote out of the backlog when:
 Blocks that have moved out of the backlog and into `blocks/`.
 
 - cta-button (tier 1, 2)
+- callout-box (tier 1, 2) — right-aligned card with image, title, body, button; body copy wraps on desktop, stacks on mobile
 - donation-array (tier 1, 2, 3) — tighter spacing, uniform 140px buttons
 - email-wrapper (tier 1, 2) — includes built-in preview text support
 
@@ -48,7 +43,7 @@ Blocks that have moved out of the backlog and into `blocks/`.
 
 - **Public repo launch** — flipped public 2026-05-16, hosted under the CampaignHelp org, linked from awesome-actionkit
 - **Screenshot pipeline** — `tests/screenshots.js` renders all tier-1 blocks via Playwright into each block's `screenshots/` folder
-- **Playground** — live at https://campaignhelp.github.io/ak-mailing-blocks/playground/. Vanilla JS, no build, tabbed UI covering all three shipped blocks (cta-button, donation-array, email-wrapper) with hash-deep-linking (`#cta-button`, etc.). Each tab has its own controls panel, live preview iframe, and copy-HTML button.
+- **Playground** — live at https://campaignhelp.github.io/ak-mailing-blocks/playground/. Vanilla JS, no build, tabbed UI covering all four shipped blocks (cta-button, callout-box, donation-array, email-wrapper) with hash-deep-linking (`#cta-button`, etc.). Each tab has its own controls panel, live preview iframe, and copy-HTML button. Callout-box preview includes sample body copy alongside the card so the wrap behavior is visible.
 
 ## Won't build
 

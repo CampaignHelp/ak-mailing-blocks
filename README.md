@@ -14,7 +14,7 @@ ActionKit's Compose screen lets you paste raw HTML into your mailing body. This 
 
 The fastest way to use these blocks: open the **[interactive playground](https://campaignhelp.github.io/ak-mailing-blocks/playground/)**, tweak the colors and copy in your AK subdomain, then click "Copy HTML" and paste straight into your mailing. No git clone, no edit-point hunting in HTML comments.
 
-Currently covers the donation array. CTA button and email wrapper coming next.
+Covers all four shipped blocks: CTA button, callout box, donation array, and email wrapper.
 
 Each block ships in tiers so your whole team can use it. The simplest tier is plain HTML — paste it in and change the text. More advanced tiers wire the block to ActionKit's Custom Mailing Fields so a less-technical teammate can update amounts, colors, and labels from the AK admin without ever touching HTML.
 
@@ -33,6 +33,7 @@ Not every block has all three tiers. Tier 1 always exists. Tiers 2 and 3 are off
 | Block | What it does | Tiers |
 |---|---|---|
 | [`blocks/cta-button`](blocks/cta-button/README.md) | Outlook-safe HTML call-to-action button with customizable label, URL, and color. | 1, 2 |
+| [`blocks/callout-box`](blocks/callout-box/README.md) | Right-aligned card with image, title, body, and button. Body copy wraps around it on desktop, stacks on mobile. | 1, 2 |
 | [`blocks/donation-array`](blocks/donation-array/README.md) | Three-button donation ask with amounts that can adapt to each recipient's giving history. | 1, 2, 3 |
 | [`blocks/email-wrapper`](blocks/email-wrapper/README.md) | Dark-mode-safe HTML email wrapper, installed via AK's Email Wrappers admin. Includes built-in preview text support. | 1, 2 |
 

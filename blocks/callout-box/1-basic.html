@@ -1,0 +1,101 @@
+<!--
+  Callout Box — Tier 1: Paste and go
+
+  A right-aligned card with an image, title, short body, and button. Paste it
+  ABOVE the paragraph(s) you want the body copy to wrap around. On most clients
+  (Gmail, Apple Mail, iOS Mail, Outlook.com) text will wrap to the left of the
+  card. On Outlook Windows the card sits at top-right and body copy starts
+  below it. On mobile the card stacks above the body copy.
+
+  Six things you typically edit:
+    1. Image URL: replace https://example.org/callout.png
+    2. Image alt text: replace "Callout image"
+    3. Title: replace "Callout title"
+    4. Body text: replace the placeholder sentence (or delete the whole row)
+    5. Button label + URL: replace "Take action" and https://example.org
+    6. Brand color: replace #1a57c2 (appears 3 times — top accent, mso button,
+       and a-tag button)
+-->
+<!--[if !mso]><!-->
+<style>
+  @media only screen and (max-width: 480px) {
+    .ak-callout-box {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      float: none !important;
+      margin: 0 0 16px 0 !important;
+    }
+  }
+</style>
+<!--<![endif]-->
+<table class="ak-callout-box"
+       role="presentation"
+       align="right"
+       width="220"
+       cellspacing="0"
+       cellpadding="0"
+       border="0"
+       style="width: 220px; float: right; margin: 0 0 16px 16px; background: #ffffff; border: 1px solid #e3e6ea; border-collapse: separate;">
+  <!-- Brand accent bar -->
+  <tr>
+    <td style="background-color: #1a57c2; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+  </tr>
+  <!-- Image -->
+  <tr>
+    <td style="padding: 0;">
+      <img src="https://example.org/callout.png"
+           alt="Callout image"
+           width="220"
+           style="display: block; width: 100%; max-width: 220px; height: auto; border: 0;">
+    </td>
+  </tr>
+  <!-- Title -->
+  <tr>
+    <td style="padding: 16px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; color: #1a1d21; line-height: 1.3;">
+      Callout title
+    </td>
+  </tr>
+  <!-- Body -->
+  <tr>
+    <td style="padding: 8px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #5a6068; line-height: 1.45;">
+      One or two sentences of supporting context that explains why this matters.
+    </td>
+  </tr>
+  <!-- Button -->
+  <tr>
+    <td align="center" style="padding: 16px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="https://example.org"
+        style="height:40px; v-text-anchor:middle; width:188px;"
+        arcsize="10%"
+        stroke="f"
+        fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:14px; font-weight:bold;">Take action</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://example.org"
+         target="_blank"
+         rel="noopener"
+         style="
+           background-color: #1a57c2;
+           border-radius: 4px;
+           color: #ffffff;
+           display: block;
+           font-family: Helvetica, Arial, sans-serif;
+           font-size: 14px;
+           font-weight: bold;
+           line-height: 40px;
+           min-height: 40px;
+           text-align: center;
+           text-decoration: none;
+           -webkit-text-size-adjust: none;
+           mso-hide: all;
+         ">Take action</a>
+      <!--<![endif]-->
+    </td>
+  </tr>
+</table>

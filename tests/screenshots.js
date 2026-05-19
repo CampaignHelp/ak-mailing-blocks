@@ -26,7 +26,17 @@ const PADDING = 24;
 const SKIP_BLOCKS = new Set(['_TEMPLATE']);
 const TIER_1_PATTERN = /^1-/;
 
-function wrapFragment(fragment) {
+// Blocks that need surrounding body copy to demonstrate wrap behavior in
+// their screenshot (callout-box). Other blocks render in an empty canvas.
+const WRAP_CONTEXT_BLOCKS = new Set(['callout-box']);
+const SAMPLE_WRAP_BODY = `
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222222; margin: 0 0 12px;">Friends,</p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222222; margin: 0 0 12px;">Body copy continues here. On most email clients this paragraph flows to the left of the callout card so the call to action stays visible while readers scan the email.</p>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222222; margin: 0 0 12px;">A second paragraph adds enough text for the wrap to be obvious. Replace this with your real mailing body when you paste the callout block into a draft.</p>
+`;
+
+function wrapFragment(fragment, blockName) {
+  const trailingBody = WRAP_CONTEXT_BLOCKS.has(blockName) ? SAMPLE_WRAP_BODY : '';
   return `<!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +49,7 @@ function wrapFragment(fragment) {
 <body>
 <div class="canvas">
 ${fragment}
+${trailingBody}
 </div>
 </body>
 </html>`;
@@ -60,6 +71,13 @@ function substituteForPreview(html) {
       /https:\/\/example\.org\/logo\.png/g,
       'data:image/svg+xml;utf8,' + encodeURIComponent(
         '<svg xmlns="http://www.w3.org/2000/svg" width="180" height="48" viewBox="0 0 180 48"><rect width="180" height="48" rx="4" fill="#1a57c2"/><text x="90" y="30" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="16" font-weight="bold" fill="#fff">YOUR LOGO</text></svg>'
+      )
+    )
+    // Callout image placeholder — neutral gray SVG sized to the card's 220px width
+    .replace(
+      /https:\/\/example\.org\/callout\.png/g,
+      'data:image/svg+xml;utf8,' + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="140" viewBox="0 0 220 140"><rect width="220" height="140" fill="#dde2e8"/><text x="110" y="76" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="14" fill="#5a6068">CALLOUT IMAGE</text></svg>'
       )
     )
     .replace(/\[LOGO_URL\]/g, 'https://campaign.help/img/logo-placeholder.png')
@@ -111,7 +129,7 @@ async function discoverTargets() {
 async function renderOne(browser, target) {
   const raw = await fsp.readFile(target.source, 'utf8');
   const substituted = substituteForPreview(raw);
-  const html = isFullDocument(substituted) ? substituted : wrapFragment(substituted);
+  const html = isFullDocument(substituted) ? substituted : wrapFragment(substituted, target.block);
 
   const context = await browser.newContext({
     // Small viewport height so fullPage captures real content height, not padding.

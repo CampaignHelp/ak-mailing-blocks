@@ -1,0 +1,96 @@
+<!--
+  Callout Box — Tier 2: Wired to Custom Mailing Fields
+  Your team edits these from the AK Compose screen:
+    callout_image_url       — image src (PNG/JPG hosted somewhere)
+    callout_image_alt       — image alt text
+    callout_title           — bold heading
+    callout_body            — short supporting sentence (or blank)
+    callout_button_label    — button text
+    callout_button_url      — button link
+    callout_color           — brand color hex (e.g. #1a57c2) used for accent + button
+    callout_text_color      — button text color hex (e.g. #ffffff)
+  See README.md for one-time admin setup instructions.
+-->
+<!--[if !mso]><!-->
+<style>
+  @media only screen and (max-width: 480px) {
+    .ak-callout-box {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      float: none !important;
+      margin: 0 0 16px 0 !important;
+    }
+  }
+</style>
+<!--<![endif]-->
+<table class="ak-callout-box"
+       role="presentation"
+       align="right"
+       width="220"
+       cellspacing="0"
+       cellpadding="0"
+       border="0"
+       style="width: 220px; float: right; margin: 0 0 16px 16px; background: #ffffff; border: 1px solid #e3e6ea; border-collapse: separate;">
+  <!-- Brand accent bar -->
+  <tr>
+    <td style="background-color: {{ custom_fields.callout_color }}; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+  </tr>
+  <!-- Image -->
+  <tr>
+    <td style="padding: 0;">
+      <img src="{{ custom_fields.callout_image_url }}"
+           alt="{{ custom_fields.callout_image_alt }}"
+           width="220"
+           style="display: block; width: 100%; max-width: 220px; height: auto; border: 0;">
+    </td>
+  </tr>
+  <!-- Title -->
+  <tr>
+    <td style="padding: 16px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; color: #1a1d21; line-height: 1.3;">
+      {{ custom_fields.callout_title }}
+    </td>
+  </tr>
+  <!-- Body -->
+  <tr>
+    <td style="padding: 8px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #5a6068; line-height: 1.45;">
+      {{ custom_fields.callout_body }}
+    </td>
+  </tr>
+  <!-- Button -->
+  <tr>
+    <td align="center" style="padding: 16px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="{{ custom_fields.callout_button_url }}"
+        style="height:40px; v-text-anchor:middle; width:188px;"
+        arcsize="10%"
+        stroke="f"
+        fillcolor="{{ custom_fields.callout_color }}">
+        <w:anchorlock/>
+        <center style="color:{{ custom_fields.callout_text_color }}; font-family:Helvetica,Arial,sans-serif; font-size:14px; font-weight:bold;">{{ custom_fields.callout_button_label }}</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="{{ custom_fields.callout_button_url }}"
+         target="_blank"
+         rel="noopener"
+         style="
+           background-color: {{ custom_fields.callout_color }};
+           border-radius: 4px;
+           color: {{ custom_fields.callout_text_color }};
+           display: block;
+           font-family: Helvetica, Arial, sans-serif;
+           font-size: 14px;
+           font-weight: bold;
+           line-height: 40px;
+           min-height: 40px;
+           text-align: center;
+           text-decoration: none;
+           -webkit-text-size-adjust: none;
+           mso-hide: all;
+         ">{{ custom_fields.callout_button_label }}</a>
+      <!--<![endif]-->
+    </td>
+  </tr>
+</table>

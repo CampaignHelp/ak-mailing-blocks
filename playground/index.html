@@ -279,6 +279,7 @@
   <p>Configure a block, see it render live, copy the HTML, paste into your ActionKit mailing. <a href="https://github.com/CampaignHelp/ak-mailing-blocks" target="_blank" rel="noopener">View on GitHub</a></p>
   <nav class="tabs" role="tablist">
     <button type="button" role="tab" data-tab="cta-button">CTA button</button>
+    <button type="button" role="tab" data-tab="callout-box">Callout box</button>
     <button type="button" role="tab" data-tab="donation-array">Donation array</button>
     <button type="button" role="tab" data-tab="email-wrapper">Email wrapper</button>
   </nav>
@@ -338,6 +339,84 @@
           <button id="cta-copy-btn" class="copy-btn" type="button">Copy HTML</button>
         </div>
         <pre id="cta-code-output" class="code-output"></pre>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CALLOUT BOX                                                  -->
+  <!-- ============================================================ -->
+  <div class="block-view" data-view="callout-box">
+    <aside class="panel">
+      <h2>Callout box</h2>
+
+      <fieldset>
+        <legend>Content</legend>
+        <div class="field">
+          <label for="cb-title">Title</label>
+          <input id="cb-title" type="text" value="Take action today">
+        </div>
+        <div class="field">
+          <label for="cb-body">Body (optional)</label>
+          <textarea id="cb-body" rows="2">Your support keeps this campaign moving.</textarea>
+          <div class="help">Leave blank to drop the body row entirely.</div>
+        </div>
+        <div class="field">
+          <label for="cb-image-url">Image URL (optional)</label>
+          <input id="cb-image-url" type="url" value="https://example.org/callout.png">
+          <div class="help">220&times;220px (or 440&times;440 for retina). Leave blank to drop the image.</div>
+        </div>
+        <div class="field">
+          <label for="cb-image-alt">Image alt text</label>
+          <input id="cb-image-alt" type="text" value="Callout image">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Button</legend>
+        <div class="field">
+          <label for="cb-button-label">Button label</label>
+          <input id="cb-button-label" type="text" value="Donate">
+        </div>
+        <div class="field">
+          <label for="cb-button-url">Button URL</label>
+          <input id="cb-button-url" type="url" value="https://example.org">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Brand</legend>
+        <div class="field">
+          <label>Accent + button background</label>
+          <div class="color-row">
+            <input id="cb-brand-color" type="color" value="#1a57c2">
+            <input id="cb-brand-color-hex" type="text" class="color-hex" value="#1a57c2">
+          </div>
+        </div>
+        <div class="field">
+          <label>Button text</label>
+          <div class="color-row">
+            <input id="cb-text-color" type="color" value="#ffffff">
+            <input id="cb-text-color-hex" type="text" class="color-hex" value="#ffffff">
+          </div>
+        </div>
+      </fieldset>
+    </aside>
+
+    <section class="preview-wrap">
+      <div class="preview">
+        <div class="preview-header">
+          <h2>Live preview</h2>
+          <span class="badge">600px email canvas, with sample body copy for wrap context</span>
+        </div>
+        <iframe id="cb-preview-frame" class="preview-frame" title="Live preview" style="height: 520px;"></iframe>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <h2>HTML output</h2>
+          <button id="cb-copy-btn" class="copy-btn" type="button">Copy HTML</button>
+        </div>
+        <pre id="cb-code-output" class="code-output"></pre>
       </div>
     </section>
   </div>
@@ -646,6 +725,173 @@ ${blockHtml.replace(/&amp;/g, '&')}
   })();
 
   // ============================================================
+  // Block: Callout box
+  // ============================================================
+  const calloutBox = (() => {
+    function readState() {
+      return {
+        title: $('cb-title').value,
+        body: $('cb-body').value,
+        imageUrl: $('cb-image-url').value,
+        imageAlt: $('cb-image-alt').value || 'Callout image',
+        buttonLabel: $('cb-button-label').value || 'Take action',
+        buttonUrl: $('cb-button-url').value || 'https://example.org',
+        brand: $('cb-brand-color').value,
+        textColor: $('cb-text-color').value,
+      };
+    }
+
+    function imageRow(url, alt) {
+      if (!url) return '';
+      return `  <!-- Image -->
+  <tr>
+    <td style="padding: 0;">
+      <img src="${htmlAttr(url)}"
+           alt="${htmlAttr(alt)}"
+           width="220"
+           style="display: block; width: 100%; max-width: 220px; height: auto; border: 0;">
+    </td>
+  </tr>
+`;
+    }
+
+    function bodyRow(body) {
+      if (!body || !body.trim()) return '';
+      return `  <!-- Body -->
+  <tr>
+    <td style="padding: 8px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #5a6068; line-height: 1.45;">
+      ${htmlText(body.trim())}
+    </td>
+  </tr>
+`;
+    }
+
+    function buildHtml(s) {
+      const title = htmlText(s.title || 'Callout title');
+      const buttonLabel = htmlText(s.buttonLabel);
+      const buttonHref = htmlAttr(s.buttonUrl);
+      return `<!-- Callout Box — generated by ak-mailing-blocks playground -->
+<!--[if !mso]><!-->
+<style>
+  @media only screen and (max-width: 480px) {
+    .ak-callout-box {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      float: none !important;
+      margin: 0 0 16px 0 !important;
+    }
+  }
+</style>
+<!--<![endif]-->
+<table class="ak-callout-box"
+       role="presentation"
+       align="right"
+       width="220"
+       cellspacing="0"
+       cellpadding="0"
+       border="0"
+       style="width: 220px; float: right; margin: 0 0 16px 16px; background: #ffffff; border: 1px solid #e3e6ea; border-collapse: separate;">
+  <!-- Brand accent bar -->
+  <tr>
+    <td style="background-color: ${s.brand}; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+  </tr>
+${imageRow(s.imageUrl, s.imageAlt)}  <!-- Title -->
+  <tr>
+    <td style="padding: 16px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; color: #1a1d21; line-height: 1.3;">
+      ${title}
+    </td>
+  </tr>
+${bodyRow(s.body)}  <!-- Button -->
+  <tr>
+    <td align="center" style="padding: 16px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="${buttonHref}"
+        style="height:40px; v-text-anchor:middle; width:188px;"
+        arcsize="10%"
+        stroke="f"
+        fillcolor="${s.brand}">
+        <w:anchorlock/>
+        <center style="color:${s.textColor}; font-family:Helvetica,Arial,sans-serif; font-size:14px; font-weight:bold;">${buttonLabel}</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="${buttonHref}"
+         target="_blank"
+         rel="noopener"
+         style="
+           background-color: ${s.brand};
+           border-radius: 4px;
+           color: ${s.textColor};
+           display: block;
+           font-family: Helvetica, Arial, sans-serif;
+           font-size: 14px;
+           font-weight: bold;
+           line-height: 40px;
+           min-height: 40px;
+           text-align: center;
+           text-decoration: none;
+           -webkit-text-size-adjust: none;
+           mso-hide: all;
+         ">${buttonLabel}</a>
+      <!--<![endif]-->
+    </td>
+  </tr>
+</table>`;
+    }
+
+    // Preview wraps the callout in a 600px white canvas with sample body copy
+    // alongside so the wrap behavior is visible. Image URL gets a gray
+    // placeholder if it points at the example.org default.
+    function buildPreviewDoc(s, outputHtml) {
+      const previewHtml = outputHtml.replace(
+        /https:\/\/example\.org\/callout\.png/g,
+        'data:image/svg+xml;utf8,' + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="140" viewBox="0 0 220 140"><rect width="220" height="140" fill="#dde2e8"/><text x="110" y="76" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="14" fill="#5a6068">CALLOUT IMAGE</text></svg>'
+        )
+      );
+      return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; padding: 24px; background: #f0f0f0; font-family: Helvetica, Arial, sans-serif; }
+  .canvas { background: #ffffff; max-width: 600px; margin: 0 auto; padding: 24px; }
+  .canvas p { font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222; margin: 0 0 12px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+${previewHtml}
+<p>Friends,</p>
+<p>Body copy continues here. On most email clients this paragraph flows to the left of the callout card so the call to action stays visible while readers scan the email.</p>
+<p>A second paragraph adds enough text for the wrap to be obvious. Replace this with your real mailing body when you paste the callout block into a draft.</p>
+</div>
+</body>
+</html>`;
+    }
+
+    function render() {
+      const state = readState();
+      const html = buildHtml(state);
+      $('cb-preview-frame').srcdoc = buildPreviewDoc(state, html);
+      $('cb-code-output').textContent = html;
+    }
+
+    function init() {
+      bindColorPair('cb-brand-color', 'cb-brand-color-hex', render);
+      bindColorPair('cb-text-color', 'cb-text-color-hex', render);
+      ['cb-title', 'cb-body', 'cb-image-url', 'cb-image-alt', 'cb-button-label', 'cb-button-url']
+        .forEach((id) => $(id).addEventListener('input', render));
+      bindCopyButton('cb-copy-btn', () => $('cb-code-output').textContent);
+      render();
+    }
+
+    return { init };
+  })();
+
+  // ============================================================
   // Block: Donation array
   // ============================================================
   const donationArray = (() => {
@@ -859,7 +1105,7 @@ ${buttons}
   // ============================================================
   // Tab router
   // ============================================================
-  const TABS = ['cta-button', 'donation-array', 'email-wrapper'];
+  const TABS = ['cta-button', 'callout-box', 'donation-array', 'email-wrapper'];
   const DEFAULT_TAB = 'cta-button';
 
   function activate(name) {
@@ -885,6 +1131,7 @@ ${buttons}
   // Boot
   // ============================================================
   ctaButton.init();
+  calloutBox.init();
   donationArray.init();
   emailWrapper.init();
   activate(location.hash.replace(/^#/, '') || DEFAULT_TAB);
