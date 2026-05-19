@@ -1,0 +1,196 @@
+<!--
+  QA test mailing — paste this entire body into an ActionKit draft on Robotic Dogs
+  (or any AK test instance), send a proof, and verify each block renders correctly
+  across as many email clients as you can reach.
+
+  Includes Tier 1 versions of: cta-button, cta-line, callout-box, donation-array.
+
+  email-wrapper is NOT in this file — it IS the wrapper. To QA the wrapper,
+  install it via Mailings tab > Email Wrappers > Add email wrapper, then send
+  any test mailing through it.
+
+  After paste:
+    1. Set the mailing subject to "ak-mailing-blocks QA — <date>"
+    2. Set preview text to "Render check across email clients"
+    3. Use an email wrapper that includes your real CAN-SPAM footer
+    4. Send proof to each test mailbox in the QA matrix
+-->
+
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; margin: 0 0 16px;">Friends,</p>
+
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; margin: 0 0 16px;">This is the ak-mailing-blocks QA test mailing. It renders all four inline blocks in sequence so a single proof gives full coverage. The email wrapper is verified separately.</p>
+
+<!-- ============================================================ -->
+<!-- BLOCK 1: cta-button (default settings)                       -->
+<!-- ============================================================ -->
+<h2 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; margin: 32px 0 8px;">1. CTA button</h2>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #5a6068; margin: 0 0 16px;">Expected: solid blue rounded button, centered, "Take action" label. Should render correctly in Outlook via VML.</p>
+
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto;">
+  <tr>
+    <td align="center">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="https://example.org"
+        style="height:48px; v-text-anchor:middle; width:200px;"
+        arcsize="8%"
+        stroke="f"
+        fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">Take action</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://example.org" target="_blank" rel="noopener" style="background-color: #1a57c2; border-radius: 4px; color: #ffffff; display: inline-block; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 48px; min-height: 48px; padding: 0 28px; text-align: center; text-decoration: none; -webkit-text-size-adjust: none; mso-hide: all;">Take action</a>
+      <!--<![endif]-->
+    </td>
+  </tr>
+</table>
+
+<!-- ============================================================ -->
+<!-- BLOCK 2: cta-line                                            -->
+<!-- ============================================================ -->
+<h2 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; margin: 32px 0 8px;">2. CTA line</h2>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #5a6068; margin: 0 0 16px;">Expected (desktop): gray strip with bold headline on the left, button on the right. Expected (mobile): both stack center-aligned via media query.</p>
+
+<!--[if !mso]><!-->
+<style>
+  @media only screen and (max-width: 480px) {
+    .ak-cta-line-cell {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+      padding: 8px 0 !important;
+    }
+  }
+</style>
+<!--<![endif]-->
+<table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 24px auto;">
+  <tr>
+    <td style="background: #f5f6f8; padding: 20px 24px; border-radius: 4px;">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <td class="ak-cta-line-cell" valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; color: #1a1d21; line-height: 1.3;">
+            Keep the pressure on
+          </td>
+          <td class="ak-cta-line-cell" valign="middle" align="right" width="160" style="width: 160px;">
+            <!--[if mso]>
+            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://example.org" style="height:40px; v-text-anchor:middle; width:140px;" arcsize="10%" stroke="f" fillcolor="#1a57c2">
+              <w:anchorlock/>
+              <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:14px; font-weight:bold;">Take action</center>
+            </v:roundrect>
+            <![endif]-->
+            <!--[if !mso]><!-->
+            <a href="https://example.org" target="_blank" rel="noopener" style="background-color: #1a57c2; border-radius: 4px; color: #ffffff; display: inline-block; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; line-height: 40px; min-height: 40px; width: 140px; text-align: center; text-decoration: none; -webkit-text-size-adjust: none; mso-hide: all;">Take action</a>
+            <!--<![endif]-->
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<!-- ============================================================ -->
+<!-- BLOCK 3: callout-box                                         -->
+<!-- ============================================================ -->
+<h2 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; margin: 32px 0 8px;">3. Callout box</h2>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #5a6068; margin: 0 0 16px;">Expected (Gmail/Apple/iOS/Outlook.com): card floats right, body copy wraps to its left. Expected (Outlook Windows): card sits top-right, body copy starts below it. Expected (mobile): card stacks above body via media query.</p>
+
+<!--[if !mso]><!-->
+<style>
+  @media only screen and (max-width: 480px) {
+    .ak-callout-box {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      float: none !important;
+      margin: 0 0 16px 0 !important;
+    }
+  }
+</style>
+<!--<![endif]-->
+<table class="ak-callout-box" role="presentation" align="right" width="220" cellspacing="0" cellpadding="0" border="0" style="width: 220px; float: right; margin: 0 0 16px 16px; background: #ffffff; border: 1px solid #e3e6ea; border-collapse: separate;">
+  <tr>
+    <td style="background-color: #1a57c2; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="padding: 0;">
+      <img src="https://campaign.help/img/qa-callout-placeholder.png" alt="Callout image" width="220" style="display: block; width: 100%; max-width: 220px; height: auto; border: 0;">
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 16px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; color: #1a1d21; line-height: 1.3;">
+      Callout title
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 8px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #5a6068; line-height: 1.45;">
+      One or two sentences of supporting context that explains why this matters.
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="padding: 16px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://example.org" style="height:40px; v-text-anchor:middle; width:188px;" arcsize="10%" stroke="f" fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:14px; font-weight:bold;">Take action</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://example.org" target="_blank" rel="noopener" style="background-color: #1a57c2; border-radius: 4px; color: #ffffff; display: block; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; line-height: 40px; min-height: 40px; text-align: center; text-decoration: none; -webkit-text-size-adjust: none; mso-hide: all;">Take action</a>
+      <!--<![endif]-->
+    </td>
+  </tr>
+</table>
+
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; margin: 0 0 16px;">Body copy continues here. On most email clients this paragraph flows to the left of the callout card so the call to action stays visible while readers scan the email.</p>
+
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; margin: 0 0 16px;">A second paragraph adds enough text for the wrap to be obvious. On Outlook Windows the card sits top-right and this paragraph starts beneath it instead of wrapping. On mobile the card stacks above this paragraph.</p>
+
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; margin: 0 0 16px;">A third paragraph so the wrap behavior is unambiguous. Check that the card border, accent bar, image, title, body, and button all render. Image-blocked clients should still show alt text plus a readable card frame.</p>
+
+<!-- ============================================================ -->
+<!-- BLOCK 4: donation-array (3 buttons)                          -->
+<!-- ============================================================ -->
+<h2 style="font-family: Helvetica, Arial, sans-serif; font-size: 20px; margin: 32px 0 8px;">4. Donation array</h2>
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #5a6068; margin: 0 0 16px;">Expected: three 140px blue buttons reading $25 / $50 / $100, evenly spaced. Should render via VML on Outlook.</p>
+
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto;">
+  <tr>
+    <td align="center" valign="top" style="padding: 0 6px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://yourorg.actionkit.com/donate/general/?amount=25&amp;prefill=1" style="height:48px; v-text-anchor:middle; width:140px;" arcsize="8%" stroke="f" fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">$25</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://yourorg.actionkit.com/donate/general/?amount=25&amp;prefill=1" target="_blank" rel="noopener" style="background-color: #1a57c2; border-radius: 4px; color: #ffffff; display: inline-block; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 48px; min-height: 48px; width: 140px; text-align: center; text-decoration: none; -webkit-text-size-adjust: none; mso-hide: all;">$25</a>
+      <!--<![endif]-->
+    </td>
+    <td align="center" valign="top" style="padding: 0 6px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://yourorg.actionkit.com/donate/general/?amount=50&amp;prefill=1" style="height:48px; v-text-anchor:middle; width:140px;" arcsize="8%" stroke="f" fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">$50</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://yourorg.actionkit.com/donate/general/?amount=50&amp;prefill=1" target="_blank" rel="noopener" style="background-color: #1a57c2; border-radius: 4px; color: #ffffff; display: inline-block; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 48px; min-height: 48px; width: 140px; text-align: center; text-decoration: none; -webkit-text-size-adjust: none; mso-hide: all;">$50</a>
+      <!--<![endif]-->
+    </td>
+    <td align="center" valign="top" style="padding: 0 6px;">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://yourorg.actionkit.com/donate/general/?amount=100&amp;prefill=1" style="height:48px; v-text-anchor:middle; width:140px;" arcsize="8%" stroke="f" fillcolor="#1a57c2">
+        <w:anchorlock/>
+        <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">$100</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="https://yourorg.actionkit.com/donate/general/?amount=100&amp;prefill=1" target="_blank" rel="noopener" style="background-color: #1a57c2; border-radius: 4px; color: #ffffff; display: inline-block; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 48px; min-height: 48px; width: 140px; text-align: center; text-decoration: none; -webkit-text-size-adjust: none; mso-hide: all;">$100</a>
+      <!--<![endif]-->
+    </td>
+  </tr>
+</table>
+
+<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; margin: 32px 0 16px;">Thanks for QAing,<br>The ak-mailing-blocks maintainers</p>

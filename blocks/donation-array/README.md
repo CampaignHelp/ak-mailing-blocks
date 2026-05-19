@@ -269,4 +269,18 @@ AK's Suggested Ask documentation: [https://roboticdogs.actionkit.com/docs/manual
 
 ## Tested on
 
-Pending QA — will be filled in after testing.
+| Client | Light | Dark | Notes |
+|---|---|---|---|
+| Apple Mail macOS | — | — | not yet tested |
+| Apple Mail iOS | — | — | not yet tested |
+| Gmail web (Chrome) | — | — | not yet tested |
+| Gmail iOS app | — | — | not yet tested |
+| Gmail Android app | — | — | not yet tested |
+| Outlook web | — | — | not yet tested |
+| Outlook iOS app | — | — | not yet tested |
+| Yahoo Mail web | — | — | not yet tested |
+| Proton Mail web | — | — | not yet tested |
+| Outlook Windows desktop | — | — | not yet tested (requires Litmus or Windows VM) |
+| Samsung Mail | — | — | not yet tested (requires Android device) |
+
+Last verified: never. See [`tests/QA-PROCEDURE.md`](../../tests/QA-PROCEDURE.md) for how to fill this in.
