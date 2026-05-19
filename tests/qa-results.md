@@ -13,52 +13,50 @@ This is the **single source of truth** for compatibility — the per-block READM
 
 ## Current matrix
 
-**Latest full run:** never. Run the procedure and replace this section.
+**Latest full run:** 2026-05-19 (partial — 4 of 9 free-tier clients covered, email-wrapper not yet QA'd as a wrapper install).
 
-```
-Replace the matrix below with results from your run.
-Keep the "Setup notes" and "Notes / known issues" sections — they
-explain anything that's not a clean ✓.
-```
-
-### Run YYYY-MM-DD — by jordankrueger@campaign.help
+### Run 2026-05-19 — by jordankrueger@campaign.help
 
 **Setup notes:**
 
 - AK instance: Robotic Dogs
-- Email wrapper used for proofs: [name of the wrapper]
-- Test mailing source: `tests/test-mailing.html` at commit `<short-sha>`
+- Email wrapper used for proofs: Robotic Dogs default
+- Test mailing source: `tests/test-mailing.html` at commit `c2791d0`
 
 **Matrix:**
 
 | Client | Mode | cta-button | cta-line | callout-box | donation-array | email-wrapper |
 |---|---|---|---|---|---|---|
-| Apple Mail macOS | light | — | — | — | — | — |
+| Apple Mail macOS | light | ✓ | ✓ | ✓ | ✓ | — |
 | Apple Mail macOS | dark | — | — | — | — | — |
-| Apple Mail iOS | light | — | — | — | — | — |
+| Apple Mail iOS | light | ✓ | ✓ | ~ (1) | ✓ | — |
 | Apple Mail iOS | dark | — | — | — | — | — |
-| Gmail web (Chrome) | light | — | — | — | — | — |
+| Gmail web (Chrome) | light | ✓ | ✓ | ✓ | ✓ | — |
 | Gmail web (Chrome) | dark | — | — | — | — | — |
-| Gmail iOS app | light | — | — | — | — | — |
+| Gmail iOS app | light | ✓ | ✓ | ✓ | ✓ | — |
 | Gmail iOS app | dark | — | — | — | — | — |
-| Gmail Android app | light | — | — | — | — | — |
-| Gmail Android app | dark | — | — | — | — | — |
-| Outlook web | light | — | — | — | — | — |
-| Outlook web | dark | — | — | — | — | — |
-| Outlook iOS app | light | — | — | — | — | — |
-| Outlook iOS app | dark | — | — | — | — | — |
-| Yahoo Mail web | light | — | — | — | — | — |
-| Yahoo Mail web | dark | — | — | — | — | — |
-| Proton Mail web | light | — | — | — | — | — |
-| Proton Mail web | dark | — | — | — | — | — |
+| Gmail Android app | — | — | — | — | — | — |
+| Outlook web | — | — | — | — | — | — |
+| Outlook iOS app | — | — | — | — | — | — |
+| Yahoo Mail web | — | — | — | — | — | — |
+| Proton Mail web | — | — | — | — | — | — |
 
 **Out of scope this run** (requires paid tools or specific hardware):
 - Outlook Windows desktop (multiple versions) — requires Litmus or a Windows VM
 - Samsung Mail (Android default) — requires an Android device
 
+**Not yet tested in this run** (covered by next run):
+- Dark mode across all confirmed clients
+- Gmail Android app
+- Outlook web (free Microsoft account)
+- Outlook iOS app
+- Yahoo Mail web
+- Proton Mail web
+- email-wrapper installed as the AK wrapper
+
 **Notes / known issues:**
 
-(Document anything that's a `~` or `✗` here. Cross-reference any issue numbers filed.)
+1. **callout-box on Apple Mail iOS — image didn't scale.** When the media query stacks the card to full width on mobile, the image inside stayed pinned at 220px instead of expanding to match the card. **Fixed** in commit on 2026-05-19 — the media query now includes `.ak-callout-box img { width: 100% !important; max-width: 100% !important; }` so the image follows its parent. Same fix applied to `blocks/callout-box/1-basic.html`, `2-with-cmfs.html`, the playground generator, and `tests/test-mailing.html`. Re-test on next QA pass to confirm.
 
 ---
 
@@ -66,7 +64,7 @@ explain anything that's not a clean ✓.
 
 Past runs in reverse chronological order. Keep the matrix snapshot small — just the headline (X passing, Y limitations, Z failing) and a link to the commit where the per-block READMEs were updated.
 
-- (no runs yet)
+- **2026-05-19** — partial pass (4 of 9 clients, light mode only). 19 ✓, 1 ~ (callout-box image-scaling on Apple Mail iOS, fixed same-day). No ✗. email-wrapper not yet QA'd as an installed wrapper.
 
 ---
 

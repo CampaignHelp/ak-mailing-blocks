@@ -18,7 +18,7 @@ See [`1-basic.html`](./1-basic.html) for the copy-paste source.
 
 ### What to edit
 
-- **Image URL** — replace `https://example.org/callout.png` with a hosted image. 220×220px (or 440×440 for retina) is the right shape. Use a CDN your team controls.
+- **Image URL** — replace `https://example.org/callout.png` with a hosted image. **Recommended: supply a 2x source (440px wide minimum)** so the image stays sharp when the card stacks to full mobile width. Use a CDN your team controls.
 - **Image alt text** — replace `Callout image` with a short description of the image. Email clients show this when images are blocked.
 - **Title** — replace `Callout title` with the headline (1 line works best).
 - **Body text** — replace the placeholder sentence with 1–2 short sentences of context. If you don't need body text, delete the whole `<!-- Body -->` row.
@@ -71,7 +71,7 @@ See [`2-with-cmfs.html`](./2-with-cmfs.html) for the copy-paste source.
 
 - **Gmail (web + apps), Apple Mail, iOS Mail, Outlook.com** — full text-wrap. Body paragraphs flow to the left of the callout.
 - **Outlook Windows** — the callout sits at top-right of the parent cell and body copy starts below it. Not ideal but predictable. The card itself (accent, image, title, body, button) renders correctly via VML.
-- **Mobile (Apple Mail, Gmail apps, Outlook iOS, Samsung Mail)** — the embedded media query stacks the callout above the body copy at widths under 480px.
+- **Mobile (Apple Mail, Gmail apps, Outlook iOS, Samsung Mail)** — the embedded media query stacks the callout above the body copy at widths under 480px. The image scales to match the card's new full width — supply a 2x source so the upscaling stays crisp.
 - **Gmail Web on phone** — Gmail Web strips the `<style>` block, so the callout stays right-aligned at 220px even on narrow viewports. Readable but cramped. Acceptable known limitation; the much more common Gmail app honors the media query.
 - **Image blocking** — alt text shows; the card border and brand accent still render. The title, body, and button remain readable.
 - **Dark mode** — card uses white background, dark text, brand-color accent + button. Most clients respect the inline styles. Aggressive dark-mode inversion in some Samsung/Outlook iOS builds may flip the card to a dark surface; title and body stay legible.
