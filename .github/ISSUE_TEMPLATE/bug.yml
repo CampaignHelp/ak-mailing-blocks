@@ -1,0 +1,60 @@
+name: Bug report
+description: A block doesn't render correctly, the playground misbehaves, or the HTML is broken in some specific case.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: block
+    attributes:
+      label: Which block is affected?
+      options:
+        - cta-button
+        - cta-line
+        - callout-box
+        - donation-array
+        - email-wrapper
+        - playground (the interactive site)
+        - screenshot pipeline
+        - documentation
+        - other / not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What went wrong?
+      description: What did you do, what did you expect, and what actually happened? Screenshots help a lot.
+      placeholder: |
+        Steps:
+        1. ...
+        2. ...
+
+        Expected:
+        ...
+
+        Actual:
+        ...
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: Email client (if relevant)
+      description: e.g., "Gmail web on Chrome 124", "Apple Mail macOS 14.4", "Outlook 365 desktop on Windows 11"
+    validations:
+      required: false
+  - type: input
+    id: ak-version
+    attributes:
+      label: ActionKit version or hosting (if relevant)
+      description: e.g., "AK Cloud", "self-hosted v2.x"
+    validations:
+      required: false
+  - type: textarea
+    id: html
+    attributes:
+      label: The HTML you pasted (if applicable)
+      description: Paste the block HTML you copied from the playground or the source file. Strip out anything sensitive first.
+      render: html
+    validations:
+      required: false

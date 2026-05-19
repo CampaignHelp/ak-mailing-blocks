@@ -1,0 +1,68 @@
+name: Compatibility report
+description: A block renders incorrectly (or you've confirmed it renders correctly) in a specific email client.
+title: "[compat] "
+labels: ["compat"]
+body:
+  - type: dropdown
+    id: block
+    attributes:
+      label: Which block?
+      options:
+        - cta-button
+        - cta-line
+        - callout-box
+        - donation-array
+        - email-wrapper
+    validations:
+      required: true
+  - type: dropdown
+    id: client-family
+    attributes:
+      label: Client family
+      options:
+        - Outlook (Windows desktop)
+        - Outlook (macOS)
+        - Outlook (web)
+        - Outlook (iOS / Android app)
+        - Gmail (web)
+        - Gmail (iOS / Android app)
+        - Apple Mail (macOS)
+        - Apple Mail (iOS)
+        - Samsung Mail
+        - Yahoo Mail
+        - Proton Mail
+        - Other (specify below)
+    validations:
+      required: true
+  - type: input
+    id: client-version
+    attributes:
+      label: Client version + OS
+      description: e.g., "Outlook 365 16.84 on Windows 11", "Apple Mail 17.3 on macOS 14.4"
+    validations:
+      required: true
+  - type: dropdown
+    id: result
+    attributes:
+      label: Render result
+      options:
+        - Renders correctly — adding to tested-on list
+        - Renders with minor issues (acceptable)
+        - Renders with major issues (needs a fix or documented workaround)
+        - Doesn't render at all
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What did you see?
+      description: Describe what looks wrong. Screenshots are very welcome — paste them inline.
+    validations:
+      required: true
+  - type: input
+    id: dark-mode
+    attributes:
+      label: Dark mode?
+      description: Were you testing in light mode, dark mode, or both?
+    validations:
+      required: false

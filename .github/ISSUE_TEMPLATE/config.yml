@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Idea or open-ended question
+    url: https://github.com/CampaignHelp/ak-mailing-blocks/discussions
+    about: For block ideas, design questions, or anything that isn't a specific bug or compatibility report, please start a discussion instead of opening an issue.
+  - name: Try the playground
+    url: https://campaignhelp.github.io/ak-mailing-blocks/playground/
+    about: Configure any block live, copy the HTML, and paste it into your ActionKit mailing.

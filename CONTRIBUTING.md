@@ -2,6 +2,15 @@
 
 New blocks welcome. Here's how to submit one.
 
+## Where to start
+
+- **Have a block idea?** Open a [new block proposal issue](https://github.com/CampaignHelp/ak-mailing-blocks/issues/new/choose) — uses a short template. For open-ended brainstorming, start a thread in [Discussions](https://github.com/CampaignHelp/ak-mailing-blocks/discussions) instead.
+- **Spotted a rendering bug?** File a [bug report](https://github.com/CampaignHelp/ak-mailing-blocks/issues/new/choose).
+- **Confirmed a block works (or breaks) in a specific email client?** File a [compatibility report](https://github.com/CampaignHelp/ak-mailing-blocks/issues/new/choose) — both green and red results help.
+- **Want to submit a block PR?** Keep reading.
+
+By participating you're agreeing to the [community guidelines](./CODE_OF_CONDUCT.md).
+
 ## What makes a good block proposal
 
 A good block is:
@@ -54,6 +63,6 @@ Document your test results in the block's README under "Tested on."
 3. Open a PR with a short description of the problem it solves.
 4. Expect review for correctness, documentation quality, and AK compatibility.
 
-## Code of conduct
+## Community guidelines
 
-Be kind. This is a community resource for ActionKit users at progressive advocacy orgs.
+See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md). Short version: be kind, focus on the code, assume good intent.

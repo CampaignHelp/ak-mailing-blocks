@@ -1,0 +1,60 @@
+name: New block proposal
+description: Suggest a new HTML block to add to the library.
+title: "[new block] "
+labels: ["block: new proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a new block. Before filing, please skim [BACKLOG.md](https://github.com/CampaignHelp/ak-mailing-blocks/blob/main/BACKLOG.md) — your idea may already be in the candidates list or intentionally declined.
+  - type: input
+    id: name
+    attributes:
+      label: Block name
+      description: Kebab-case, e.g. "social-share-row" or "event-rsvp-card"
+      placeholder: my-new-block
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What does it do?
+      description: One or two sentences describing the layout and purpose.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is this worth packaging?
+      description: What problem does it solve? Has a real org/campaign needed it? Where do senders re-invent this pattern today?
+    validations:
+      required: true
+  - type: dropdown
+    id: tier-ambition
+    attributes:
+      label: Tier ambition
+      description: Which tiers feel realistic for this block?
+      options:
+        - Tier 1 only (paste-and-go)
+        - Tier 1 + Tier 2 (paste-and-go + AK Custom Mailing Fields)
+        - Tier 1 + Tier 2 + Tier 3 (adds donor/user personalization)
+    validations:
+      required: true
+  - type: dropdown
+    id: editor
+    attributes:
+      label: Who's the main editor?
+      description: Who would be changing the values per mailing?
+      options:
+        - Developer (Tier 1 — edits HTML directly)
+        - Non-technical staff via AK Compose screen (Tier 2 — uses CMFs)
+        - No human edits — AK fills it from donor data (Tier 3)
+    validations:
+      required: true
+  - type: textarea
+    id: open-questions
+    attributes:
+      label: Open questions
+      description: Anything genuinely unclear — mobile behavior, accessibility, Outlook fallback, etc.
+    validations:
+      required: false
