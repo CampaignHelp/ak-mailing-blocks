@@ -38,9 +38,21 @@ Not every block has all three tiers. Tier 1 always exists. Tiers 2 and 3 are off
 | [`blocks/donation-array`](blocks/donation-array/README.md) | Three-button donation ask with amounts that can adapt to each recipient's giving history. | 1, 2, 3 |
 | [`blocks/email-wrapper`](blocks/email-wrapper/README.md) | Dark-mode-safe HTML email wrapper, installed via AK's Email Wrappers admin. Includes built-in preview text support. | 1, 2 |
 
-## Tested on
+## Email client support
 
-Results are documented in each block's README after QA. Testing uses headless Chrome, Apple Mail on macOS, and iOS Mail. Known gap: Outlook for Windows is not tested in v1 — each block uses Outlook-safe table patterns, but pixel verification against Outlook desktop is not yet in the test suite.
+Every block is built against Outlook-safe HTML patterns (table layouts, VML buttons, inline styles) and verified visually in headless Chromium. **Real email client coverage is documented in [`tests/qa-results.md`](tests/qa-results.md)** — that file is the single source of truth.
+
+| Block | Standing known limitations |
+|---|---|
+| `cta-button` | Aggressive dark-mode inversion in some Outlook iOS / Samsung Mail builds may flip colors. |
+| `cta-line` | Gmail Web on phone strips the `<style>` block, so the headline and button stay side-by-side on mobile Gmail Web. Yahoo Mail historically strips `background-color` on `<table>` so the strip background may not render. |
+| `callout-box` | Outlook Windows desktop doesn't support CSS float — the card sits top-right of the parent cell instead of body copy wrapping around it. Gmail Web on phone strips the media query, so the card stays right-aligned at 220px on narrow viewports. |
+| `donation-array` | 4-button layout with the optional "Other" button is tight at 600px — 5 × 120px buttons leave little gutter. Stick to 3 or 4 buttons. |
+| `email-wrapper` | Aggressive dark-mode inversion in some Outlook iOS / Samsung Mail builds may shift the accent bar and footer background. |
+
+All blocks have a "Known compatibility" section in their own README with the specifics, and a pointer to the latest QA run.
+
+Want to help QA? See [`tests/QA-PROCEDURE.md`](tests/QA-PROCEDURE.md). About 90 minutes for a full sweep across free-tier clients. Compatibility reports are welcome via [issues](https://github.com/CampaignHelp/ak-mailing-blocks/issues/new/choose) — both pass and fail results help.
 
 ## Related repos
 

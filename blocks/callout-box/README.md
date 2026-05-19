@@ -80,18 +80,6 @@ See [`2-with-cmfs.html`](./2-with-cmfs.html) for the copy-paste source.
 
 ## Tested on
 
-| Client | Light | Dark | Notes |
-|---|---|---|---|
-| Apple Mail macOS | — | — | not yet tested |
-| Apple Mail iOS | — | — | not yet tested |
-| Gmail web (Chrome) | — | — | not yet tested |
-| Gmail iOS app | — | — | not yet tested |
-| Gmail Android app | — | — | not yet tested |
-| Outlook web | — | — | not yet tested |
-| Outlook iOS app | — | — | not yet tested |
-| Yahoo Mail web | — | — | not yet tested |
-| Proton Mail web | — | — | not yet tested |
-| Outlook Windows desktop | — | — | not yet tested (requires Litmus or Windows VM) |
-| Samsung Mail | — | — | not yet tested (requires Android device) |
+See [`tests/qa-results.md`](../../tests/qa-results.md) for the current QA matrix across every block and client. Single source of truth — this section deliberately doesn't duplicate it.
 
-Last verified: never. See [`tests/QA-PROCEDURE.md`](../../tests/QA-PROCEDURE.md) for how to fill this in.
+**Latest full QA run:** never. See [`tests/QA-PROCEDURE.md`](../../tests/QA-PROCEDURE.md) for how to run one.
