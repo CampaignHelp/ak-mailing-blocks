@@ -28,10 +28,6 @@ A candidate is ready to promote out of the backlog when:
   - **Why we'd build it:** Surfaces the action above the fold visually without forcing the reader to scroll past body copy first. Common pattern in newsletters and policy alerts. Many orgs rebuild this from scratch every send.
   - **Open questions:** Mobile behavior — stack below body copy at narrow widths (typical), or stay aligned and let body copy reflow next to it? Mobile-stacking is the safer email pattern; needs media queries + Gmail-friendly fallback.
 
-- **playground (cta-button)** — Mirror the donation-array playground pattern for cta-button: tweak label, URL, brand color, text color; live preview iframe; copy-HTML button. Reuse the same layout and `buildHtml` substitution approach from `playground/index.html`. Add a tab/section switcher so users can move between blocks without reloading.
-
-- **playground (email-wrapper)** — Same pattern for email-wrapper, but with brand tokens (primary color, accent color, logo URL, org name, address) and a sample body content area. More involved than the smaller blocks because the wrapper IS the brand definition for an org.
-
 - **brand-tokens via Email Wrapper Fields** — Refactor existing blocks to read brand colors and font from `{{ wrapper_custom_fields.brand_primary_color }}` etc. instead of hardcoding per-block. One change in AK updates every send. Highest-leverage long-term move; requires updating every block, so wait until the playground UX is settled first.
 
 - **cta-line** — Inline CTA row with a headline and a button, no image. Lighter visual weight than a full hero CTA, good for mid-body reminders or secondary asks
@@ -52,7 +48,7 @@ Blocks that have moved out of the backlog and into `blocks/`.
 
 - **Public repo launch** — flipped public 2026-05-16, hosted under the CampaignHelp org, linked from awesome-actionkit
 - **Screenshot pipeline** — `tests/screenshots.js` renders all tier-1 blocks via Playwright into each block's `screenshots/` folder
-- **Playground (donation-array)** — live at https://campaignhelp.github.io/ak-mailing-blocks/playground/. Vanilla JS, no build. Proof of concept for the broader playground roadmap.
+- **Playground** — live at https://campaignhelp.github.io/ak-mailing-blocks/playground/. Vanilla JS, no build, tabbed UI covering all three shipped blocks (cta-button, donation-array, email-wrapper) with hash-deep-linking (`#cta-button`, etc.). Each tab has its own controls panel, live preview iframe, and copy-HTML button.
 
 ## Won't build
 

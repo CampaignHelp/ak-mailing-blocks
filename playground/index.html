@@ -27,7 +27,7 @@
   header {
     background: var(--panel);
     border-bottom: 1px solid var(--border);
-    padding: 16px 24px;
+    padding: 16px 24px 0;
   }
   header h1 {
     margin: 0 0 4px;
@@ -35,11 +35,38 @@
     font-weight: 600;
   }
   header p {
-    margin: 0;
+    margin: 0 0 12px;
     color: var(--muted);
     font-size: 14px;
   }
   header a { color: var(--accent); }
+  nav.tabs {
+    display: flex;
+    gap: 4px;
+    margin-top: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: -1px;
+  }
+  nav.tabs button {
+    background: none;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  nav.tabs button:hover {
+    color: var(--text);
+  }
+  nav.tabs button.active {
+    background: var(--bg);
+    border-color: var(--border);
+    color: var(--text);
+  }
   main {
     display: grid;
     grid-template-columns: minmax(280px, 380px) 1fr;
@@ -51,6 +78,8 @@
   @media (max-width: 800px) {
     main { grid-template-columns: 1fr; }
   }
+  .block-view { display: none; }
+  .block-view.active { display: contents; }
   .panel {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -94,7 +123,9 @@
     margin-bottom: 4px;
   }
   input[type="text"],
-  input[type="number"] {
+  input[type="url"],
+  input[type="number"],
+  textarea {
     width: 100%;
     padding: 8px 10px;
     border: 1px solid var(--border);
@@ -102,8 +133,15 @@
     font-family: inherit;
     font-size: 14px;
   }
+  textarea {
+    resize: vertical;
+    min-height: 70px;
+    line-height: 1.4;
+  }
   input[type="text"]:focus,
-  input[type="number"]:focus {
+  input[type="url"]:focus,
+  input[type="number"]:focus,
+  textarea:focus {
     outline: 2px solid var(--accent);
     outline-offset: -1px;
     border-color: var(--accent);
@@ -174,7 +212,6 @@
   iframe.preview-frame {
     display: block;
     width: 100%;
-    height: 240px;
     border: none;
     background: #f0f0f0;
   }
@@ -240,111 +277,401 @@
 <header>
   <h1>ak-mailing-blocks playground</h1>
   <p>Configure a block, see it render live, copy the HTML, paste into your ActionKit mailing. <a href="https://github.com/CampaignHelp/ak-mailing-blocks" target="_blank" rel="noopener">View on GitHub</a></p>
+  <nav class="tabs" role="tablist">
+    <button type="button" role="tab" data-tab="cta-button">CTA button</button>
+    <button type="button" role="tab" data-tab="donation-array">Donation array</button>
+    <button type="button" role="tab" data-tab="email-wrapper">Email wrapper</button>
+  </nav>
 </header>
 
 <main>
-  <aside class="panel">
-    <h2>Donation array</h2>
+  <!-- ============================================================ -->
+  <!-- CTA BUTTON                                                   -->
+  <!-- ============================================================ -->
+  <div class="block-view" data-view="cta-button">
+    <aside class="panel">
+      <h2>CTA button</h2>
 
-    <fieldset>
-      <legend>ActionKit setup</legend>
-      <div class="field">
-        <label for="subdomain">Org subdomain</label>
-        <input id="subdomain" type="text" value="yourorg">
-        <div class="help">From <code>yourorg.actionkit.com</code></div>
-      </div>
-      <div class="field">
-        <label for="page-slug">Donation page slug</label>
-        <input id="page-slug" type="text" value="general">
-        <div class="help">The donation page name in your AK admin</div>
-      </div>
-    </fieldset>
+      <fieldset>
+        <legend>Button</legend>
+        <div class="field">
+          <label for="cta-label">Label</label>
+          <input id="cta-label" type="text" value="Take action">
+        </div>
+        <div class="field">
+          <label for="cta-url">URL</label>
+          <input id="cta-url" type="url" value="https://example.org">
+          <div class="help">Where the button sends people when clicked.</div>
+        </div>
+      </fieldset>
 
-    <fieldset>
-      <legend>Brand</legend>
-      <div class="field">
-        <label>Button background</label>
-        <div class="color-row">
-          <input id="bg-color" type="color" value="#1a57c2">
-          <input id="bg-color-hex" type="text" class="color-hex" value="#1a57c2">
+      <fieldset>
+        <legend>Brand</legend>
+        <div class="field">
+          <label>Background</label>
+          <div class="color-row">
+            <input id="cta-bg-color" type="color" value="#1a57c2">
+            <input id="cta-bg-color-hex" type="text" class="color-hex" value="#1a57c2">
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label>Button text</label>
-        <div class="color-row">
-          <input id="text-color" type="color" value="#ffffff">
-          <input id="text-color-hex" type="text" class="color-hex" value="#ffffff">
+        <div class="field">
+          <label>Text</label>
+          <div class="color-row">
+            <input id="cta-text-color" type="color" value="#ffffff">
+            <input id="cta-text-color-hex" type="text" class="color-hex" value="#ffffff">
+          </div>
         </div>
-      </div>
-    </fieldset>
+      </fieldset>
+    </aside>
 
-    <fieldset>
-      <legend>Amounts</legend>
-      <div class="row">
-        <div class="row-label">Button 1</div>
-        <div class="color-row">
-          <input id="amt-1" type="number" value="25" min="1" placeholder="Amount">
-          <input id="label-1" type="text" value="$25" placeholder="Label">
+    <section class="preview-wrap">
+      <div class="preview">
+        <div class="preview-header">
+          <h2>Live preview</h2>
+          <span class="badge">600px email canvas</span>
         </div>
+        <iframe id="cta-preview-frame" class="preview-frame" title="Live preview" style="height: 160px;"></iframe>
       </div>
-      <div class="row">
-        <div class="row-label">Button 2</div>
-        <div class="color-row">
-          <input id="amt-2" type="number" value="50" min="1" placeholder="Amount">
-          <input id="label-2" type="text" value="$50" placeholder="Label">
+      <div class="code-wrap">
+        <div class="code-header">
+          <h2>HTML output</h2>
+          <button id="cta-copy-btn" class="copy-btn" type="button">Copy HTML</button>
         </div>
+        <pre id="cta-code-output" class="code-output"></pre>
       </div>
-      <div class="row">
-        <div class="row-label">Button 3</div>
-        <div class="color-row">
-          <input id="amt-3" type="number" value="100" min="1" placeholder="Amount">
-          <input id="label-3" type="text" value="$100" placeholder="Label">
-        </div>
-      </div>
-      <div class="help">Tip: leave the label empty to auto-fill as <code>$&lt;amount&gt;</code>.</div>
-    </fieldset>
-  </aside>
+    </section>
+  </div>
 
-  <section class="preview-wrap">
-    <div class="preview">
-      <div class="preview-header">
-        <h2>Live preview</h2>
-        <span class="badge">600px email canvas</span>
-      </div>
-      <iframe id="preview-frame" class="preview-frame" title="Live preview"></iframe>
-    </div>
+  <!-- ============================================================ -->
+  <!-- DONATION ARRAY                                               -->
+  <!-- ============================================================ -->
+  <div class="block-view" data-view="donation-array">
+    <aside class="panel">
+      <h2>Donation array</h2>
 
-    <div class="code-wrap">
-      <div class="code-header">
-        <h2>HTML output</h2>
-        <button id="copy-btn" class="copy-btn" type="button">Copy HTML</button>
+      <fieldset>
+        <legend>ActionKit setup</legend>
+        <div class="field">
+          <label for="da-subdomain">Org subdomain</label>
+          <input id="da-subdomain" type="text" value="yourorg">
+          <div class="help">From <code>yourorg.actionkit.com</code></div>
+        </div>
+        <div class="field">
+          <label for="da-page-slug">Donation page slug</label>
+          <input id="da-page-slug" type="text" value="general">
+          <div class="help">The donation page name in your AK admin</div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Brand</legend>
+        <div class="field">
+          <label>Button background</label>
+          <div class="color-row">
+            <input id="da-bg-color" type="color" value="#1a57c2">
+            <input id="da-bg-color-hex" type="text" class="color-hex" value="#1a57c2">
+          </div>
+        </div>
+        <div class="field">
+          <label>Button text</label>
+          <div class="color-row">
+            <input id="da-text-color" type="color" value="#ffffff">
+            <input id="da-text-color-hex" type="text" class="color-hex" value="#ffffff">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Amounts</legend>
+        <div class="row">
+          <div class="row-label">Button 1</div>
+          <div class="color-row">
+            <input id="da-amt-1" type="number" value="25" min="1" placeholder="Amount">
+            <input id="da-label-1" type="text" value="$25" placeholder="Label">
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-label">Button 2</div>
+          <div class="color-row">
+            <input id="da-amt-2" type="number" value="50" min="1" placeholder="Amount">
+            <input id="da-label-2" type="text" value="$50" placeholder="Label">
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-label">Button 3</div>
+          <div class="color-row">
+            <input id="da-amt-3" type="number" value="100" min="1" placeholder="Amount">
+            <input id="da-label-3" type="text" value="$100" placeholder="Label">
+          </div>
+        </div>
+        <div class="help">Tip: leave the label empty to auto-fill as <code>$&lt;amount&gt;</code>.</div>
+      </fieldset>
+    </aside>
+
+    <section class="preview-wrap">
+      <div class="preview">
+        <div class="preview-header">
+          <h2>Live preview</h2>
+          <span class="badge">600px email canvas</span>
+        </div>
+        <iframe id="da-preview-frame" class="preview-frame" title="Live preview" style="height: 240px;"></iframe>
       </div>
-      <pre id="code-output" class="code-output"></pre>
-    </div>
-  </section>
+      <div class="code-wrap">
+        <div class="code-header">
+          <h2>HTML output</h2>
+          <button id="da-copy-btn" class="copy-btn" type="button">Copy HTML</button>
+        </div>
+        <pre id="da-code-output" class="code-output"></pre>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- EMAIL WRAPPER                                                -->
+  <!-- ============================================================ -->
+  <div class="block-view" data-view="email-wrapper">
+    <aside class="panel">
+      <h2>Email wrapper</h2>
+
+      <fieldset>
+        <legend>Org identity</legend>
+        <div class="field">
+          <label for="ew-org-name">Organization name</label>
+          <input id="ew-org-name" type="text" value="Your Organization">
+        </div>
+        <div class="field">
+          <label for="ew-logo-url">Logo URL</label>
+          <input id="ew-logo-url" type="url" value="https://example.org/logo.png">
+          <div class="help">Hosted PNG or SVG, ~360px wide for retina at 180px display.</div>
+        </div>
+        <div class="field">
+          <label for="ew-mailing-address">Mailing address</label>
+          <textarea id="ew-mailing-address" rows="2">123 Your Street, Your City, ST 00000</textarea>
+          <div class="help">Shown in the footer. Required by CAN-SPAM.</div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Brand</legend>
+        <div class="field">
+          <label>Accent bar color</label>
+          <div class="color-row">
+            <input id="ew-brand-color" type="color" value="#1a57c2">
+            <input id="ew-brand-color-hex" type="text" class="color-hex" value="#1a57c2">
+          </div>
+          <div class="help">4px bar that sits under the logo across the whole header.</div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Preview only</legend>
+        <div class="field">
+          <label for="ew-preview-text">Preview text</label>
+          <input id="ew-preview-text" type="text" value="A short message your readers see in the inbox before opening.">
+          <div class="help">Not in output. AK provides this per-mailing via the Compose-screen field.</div>
+        </div>
+        <div class="field">
+          <label for="ew-sample-body">Sample body content</label>
+          <textarea id="ew-sample-body" rows="4">Friend,
+
+Sample mailing body. This is where your email content goes — paragraphs, calls to action, donation arrays, anything else you build in.
+
+Thanks,
+The Team</textarea>
+          <div class="help">Not in output. Used only to render the preview. Blank lines = new paragraphs.</div>
+        </div>
+      </fieldset>
+    </aside>
+
+    <section class="preview-wrap">
+      <div class="preview">
+        <div class="preview-header">
+          <h2>Live preview</h2>
+          <span class="badge">600px email canvas</span>
+        </div>
+        <iframe id="ew-preview-frame" class="preview-frame" title="Live preview" style="height: 720px;"></iframe>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <h2>HTML output</h2>
+          <button id="ew-copy-btn" class="copy-btn" type="button">Copy HTML</button>
+        </div>
+        <pre id="ew-code-output" class="code-output"></pre>
+      </div>
+    </section>
+  </div>
 </main>
 
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
 
-  function readState() {
-    const labelOrDefault = (label, amount) => label || `$${amount}`;
-    return {
-      subdomain: $('subdomain').value.trim() || 'yourorg',
-      slug: $('page-slug').value.trim() || 'general',
-      bg: $('bg-color').value,
-      text: $('text-color').value,
-      buttons: [1, 2, 3].map((i) => {
-        const amt = parseInt($(`amt-${i}`).value, 10) || 0;
-        return { amount: amt, label: labelOrDefault($(`label-${i}`).value.trim(), amt) };
-      }),
-    };
+  // ============================================================
+  // Shared helpers
+  // ============================================================
+  function htmlAttr(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
   }
 
-  function buttonBlock(amount, label, subdomain, slug, bg, text) {
-    const href = `https://${subdomain}.actionkit.com/donate/${slug}/?amount=${amount}&amp;prefill=1`;
-    return `    <!-- Button: ${label} -->
+  function htmlText(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function wrapFragmentForPreview(blockHtml) {
+    return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; padding: 24px; background: #f0f0f0; font-family: Helvetica, Arial, sans-serif; }
+  .canvas { background: #ffffff; max-width: 600px; margin: 0 auto; padding: 24px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+${blockHtml.replace(/&amp;/g, '&')}
+</div>
+</body>
+</html>`;
+  }
+
+  function bindColorPair(pickerId, hexId, onChange) {
+    const picker = $(pickerId);
+    const hex = $(hexId);
+    picker.addEventListener('input', () => {
+      hex.value = picker.value;
+      onChange();
+    });
+    hex.addEventListener('input', () => {
+      const v = hex.value.trim();
+      if (/^#[0-9a-fA-F]{6}$/.test(v)) {
+        picker.value = v;
+        onChange();
+      }
+    });
+  }
+
+  function bindCopyButton(btnId, getText) {
+    const btn = $(btnId);
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(getText());
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy HTML';
+          btn.classList.remove('copied');
+        }, 1500);
+      } catch (err) {
+        btn.textContent = 'Copy failed';
+        setTimeout(() => { btn.textContent = 'Copy HTML'; }, 1500);
+      }
+    });
+  }
+
+  // ============================================================
+  // Block: CTA button
+  // ============================================================
+  const ctaButton = (() => {
+    function readState() {
+      return {
+        label: $('cta-label').value || 'Take action',
+        url: $('cta-url').value || 'https://example.org',
+        bg: $('cta-bg-color').value,
+        text: $('cta-text-color').value,
+      };
+    }
+
+    function buildHtml(s) {
+      const href = htmlAttr(s.url);
+      const label = htmlText(s.label);
+      return `<!-- CTA Button — generated by ak-mailing-blocks playground -->
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto;">
+  <tr>
+    <td align="center">
+      <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+        href="${href}"
+        style="height:48px; v-text-anchor:middle; width:200px;"
+        arcsize="8%"
+        stroke="f"
+        fillcolor="${s.bg}">
+        <w:anchorlock/>
+        <center style="color:${s.text}; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">${label}</center>
+      </v:roundrect>
+      <![endif]-->
+      <!--[if !mso]><!-->
+      <a href="${href}"
+         target="_blank"
+         rel="noopener"
+         style="
+           background-color: ${s.bg};
+           border-radius: 4px;
+           color: ${s.text};
+           display: inline-block;
+           font-family: Helvetica, Arial, sans-serif;
+           font-size: 16px;
+           font-weight: bold;
+           line-height: 48px;
+           min-height: 48px;
+           padding: 0 28px;
+           text-align: center;
+           text-decoration: none;
+           -webkit-text-size-adjust: none;
+           mso-hide: all;
+         ">${label}</a>
+      <!--<![endif]-->
+    </td>
+  </tr>
+</table>`;
+    }
+
+    function render() {
+      const html = buildHtml(readState());
+      $('cta-preview-frame').srcdoc = wrapFragmentForPreview(html);
+      $('cta-code-output').textContent = html;
+    }
+
+    function init() {
+      bindColorPair('cta-bg-color', 'cta-bg-color-hex', render);
+      bindColorPair('cta-text-color', 'cta-text-color-hex', render);
+      ['cta-label', 'cta-url'].forEach((id) => $(id).addEventListener('input', render));
+      bindCopyButton('cta-copy-btn', () => $('cta-code-output').textContent);
+      render();
+    }
+
+    return { init };
+  })();
+
+  // ============================================================
+  // Block: Donation array
+  // ============================================================
+  const donationArray = (() => {
+    function readState() {
+      const labelOrDefault = (label, amount) => label || `$${amount}`;
+      return {
+        subdomain: $('da-subdomain').value.trim() || 'yourorg',
+        slug: $('da-page-slug').value.trim() || 'general',
+        bg: $('da-bg-color').value,
+        text: $('da-text-color').value,
+        buttons: [1, 2, 3].map((i) => {
+          const amt = parseInt($(`da-amt-${i}`).value, 10) || 0;
+          return { amount: amt, label: labelOrDefault($(`da-label-${i}`).value.trim(), amt) };
+        }),
+      };
+    }
+
+    function buttonBlock(amount, label, subdomain, slug, bg, text) {
+      const safeLabel = htmlText(label);
+      const href = `https://${htmlAttr(subdomain)}.actionkit.com/donate/${htmlAttr(slug)}/?amount=${amount}&amp;prefill=1`;
+      return `    <!-- Button: ${safeLabel} -->
     <td align="center" valign="top" style="padding: 0 6px;">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
@@ -354,7 +681,7 @@
         stroke="f"
         fillcolor="${bg}">
         <w:anchorlock/>
-        <center style="color:${text}; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">${label}</center>
+        <center style="color:${text}; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">${safeLabel}</center>
       </v:roundrect>
       <![endif]-->
       <!--[if !mso]><!-->
@@ -376,16 +703,16 @@
            text-decoration: none;
            -webkit-text-size-adjust: none;
            mso-hide: all;
-         ">${label}</a>
+         ">${safeLabel}</a>
       <!--<![endif]-->
     </td>`;
-  }
+    }
 
-  function buildHtml(state) {
-    const buttons = state.buttons
-      .map((b) => buttonBlock(b.amount, b.label, state.subdomain, state.slug, state.bg, state.text))
-      .join('\n\n');
-    return `<!-- Donation Array — generated by ak-mailing-blocks playground -->
+    function buildHtml(state) {
+      const buttons = state.buttons
+        .map((b) => buttonBlock(b.amount, b.label, state.subdomain, state.slug, state.bg, state.text))
+        .join('\n\n');
+      return `<!-- Donation Array — generated by ak-mailing-blocks playground -->
 <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto;">
   <tr>
 
@@ -393,75 +720,180 @@ ${buttons}
 
   </tr>
 </table>`;
-  }
+    }
 
-  function buildPreviewDoc(blockHtml) {
-    // Un-escape &amp; → & in hrefs: the generated HTML uses &amp; for code-output
-    // validity, but the live preview iframe needs bare & in query strings.
-    return `<!DOCTYPE html>
-<html>
+    function render() {
+      const html = buildHtml(readState());
+      $('da-preview-frame').srcdoc = wrapFragmentForPreview(html);
+      $('da-code-output').textContent = html;
+    }
+
+    function init() {
+      bindColorPair('da-bg-color', 'da-bg-color-hex', render);
+      bindColorPair('da-text-color', 'da-text-color-hex', render);
+      ['da-subdomain', 'da-page-slug', 'da-amt-1', 'da-label-1', 'da-amt-2', 'da-label-2', 'da-amt-3', 'da-label-3']
+        .forEach((id) => $(id).addEventListener('input', render));
+      bindCopyButton('da-copy-btn', () => $('da-code-output').textContent);
+      render();
+    }
+
+    return { init };
+  })();
+
+  // ============================================================
+  // Block: Email wrapper
+  // ============================================================
+  const emailWrapper = (() => {
+    function readState() {
+      return {
+        orgName: $('ew-org-name').value || 'Your Organization',
+        logoUrl: $('ew-logo-url').value || 'https://example.org/logo.png',
+        mailingAddress: $('ew-mailing-address').value || '123 Your Street, Your City, ST 00000',
+        brandColor: $('ew-brand-color').value,
+        previewText: $('ew-preview-text').value,
+        sampleBody: $('ew-sample-body').value,
+      };
+    }
+
+    // Output: real wrapper, keeps {% block content %} and {% include %} intact
+    // so AK processes them when the wrapper is saved.
+    function buildHtml(s) {
+      const orgName = htmlText(s.orgName);
+      const orgNameAttr = htmlAttr(s.orgName);
+      const logoUrl = htmlAttr(s.logoUrl);
+      const addressLines = s.mailingAddress
+        .split(/\r?\n/)
+        .filter((l) => l.trim().length > 0)
+        .map((l) => htmlText(l))
+        .join('<br>');
+      return `<!-- Email Wrapper — generated by ak-mailing-blocks playground -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<style>
-  body { margin: 0; padding: 24px; background: #f0f0f0; font-family: Helvetica, Arial, sans-serif; }
-  .canvas { background: #ffffff; max-width: 600px; margin: 0 auto; padding: 24px; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+  <title></title>
 </head>
-<body>
-<div class="canvas">
-${blockHtml.replace(/&amp;/g, '&')}
-</div>
+<body style="margin: 0; padding: 0; background-color: #f0f0f0; color: #222222; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+
+  {% if preview_text %}<span style="display:none;font-size:0px;color:#fff;line-height:0px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">{{ preview_text }}</span>{% endif %}
+
+  <!-- Outer table: full-width background -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f0f0f0;">
+    <tr>
+      <td align="center" style="padding: 24px 0;">
+
+        <!-- Inner table: constrained to 600px -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="width: 600px; background-color: #ffffff;">
+
+          <!-- Header row: logo -->
+          <tr>
+            <td align="center" style="padding: 24px; background-color: #ffffff;">
+              <img src="${logoUrl}" alt="${orgNameAttr}" width="180" style="display: block; height: auto; max-width: 100%;">
+            </td>
+          </tr>
+
+          <!-- Brand accent bar -->
+          <tr>
+            <td style="background-color: ${s.brandColor}; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
+          </tr>
+
+          <!-- Main content area -->
+          <tr>
+            <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222222; background-color: #ffffff;">
+              {% block content %}{% endblock content %}
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #666666; background-color: #f5f5f5; text-align: center;">
+              <p style="margin: 0 0 12px 0;">${orgName}<br>${addressLines}</p>
+              <p style="margin: 0;">{% include "unsubscribe.html" %}</p>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
 </body>
 </html>`;
-  }
-
-  function render() {
-    const state = readState();
-    const html = buildHtml(state);
-    $('preview-frame').srcdoc = buildPreviewDoc(html);
-    $('code-output').textContent = html;
-  }
-
-  // Keep color-picker and hex input in sync, both directions
-  function bindColorPair(pickerId, hexId) {
-    const picker = $(pickerId);
-    const hex = $(hexId);
-    picker.addEventListener('input', () => {
-      hex.value = picker.value;
-      render();
-    });
-    hex.addEventListener('input', () => {
-      const v = hex.value.trim();
-      if (/^#[0-9a-fA-F]{6}$/.test(v)) {
-        picker.value = v;
-        render();
-      }
-    });
-  }
-
-  bindColorPair('bg-color', 'bg-color-hex');
-  bindColorPair('text-color', 'text-color-hex');
-
-  ['subdomain', 'page-slug', 'amt-1', 'label-1', 'amt-2', 'label-2', 'amt-3', 'label-3']
-    .forEach((id) => $(id).addEventListener('input', render));
-
-  $('copy-btn').addEventListener('click', async () => {
-    const btn = $('copy-btn');
-    try {
-      await navigator.clipboard.writeText($('code-output').textContent);
-      btn.textContent = 'Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Copy HTML';
-        btn.classList.remove('copied');
-      }, 1500);
-    } catch (err) {
-      btn.textContent = 'Copy failed';
-      setTimeout(() => { btn.textContent = 'Copy HTML'; }, 1500);
     }
-  });
 
-  render();
+    // Preview: substitute the template tags with sample content so the iframe
+    // renders what a real send would look like.
+    function buildPreviewDoc(s, outputHtml) {
+      const previewSpan = s.previewText
+        ? `<span style="display:none;font-size:0px;color:#fff;line-height:0px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">${htmlText(s.previewText)}</span>`
+        : '';
+      const bodyHtml = (s.sampleBody || '')
+        .split(/\r?\n\r?\n/)
+        .map((para) => para.trim())
+        .filter((para) => para.length > 0)
+        .map((para) => `<p style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222222; margin: 0 0 16px;">${htmlText(para).replace(/\r?\n/g, '<br>')}</p>`)
+        .join('\n              ');
+
+      return outputHtml
+        .replace(/\{% if preview_text %\}[\s\S]*?\{% endif %\}/, previewSpan)
+        .replace(/\{% block content %\}[\s\S]*?\{% endblock content %\}/, bodyHtml || '<!-- empty body -->')
+        .replace(/\{% include "unsubscribe\.html" %\}/, '<a href="#" style="color: #666;">Unsubscribe</a>');
+    }
+
+    function render() {
+      const state = readState();
+      const html = buildHtml(state);
+      $('ew-preview-frame').srcdoc = buildPreviewDoc(state, html);
+      $('ew-code-output').textContent = html;
+    }
+
+    function init() {
+      bindColorPair('ew-brand-color', 'ew-brand-color-hex', render);
+      ['ew-org-name', 'ew-logo-url', 'ew-mailing-address', 'ew-preview-text', 'ew-sample-body']
+        .forEach((id) => $(id).addEventListener('input', render));
+      bindCopyButton('ew-copy-btn', () => $('ew-code-output').textContent);
+      render();
+    }
+
+    return { init };
+  })();
+
+  // ============================================================
+  // Tab router
+  // ============================================================
+  const TABS = ['cta-button', 'donation-array', 'email-wrapper'];
+  const DEFAULT_TAB = 'cta-button';
+
+  function activate(name) {
+    if (!TABS.includes(name)) name = DEFAULT_TAB;
+    document.querySelectorAll('nav.tabs button').forEach((btn) => {
+      btn.classList.toggle('active', btn.dataset.tab === name);
+      btn.setAttribute('aria-selected', btn.dataset.tab === name ? 'true' : 'false');
+    });
+    document.querySelectorAll('.block-view').forEach((view) => {
+      view.classList.toggle('active', view.dataset.view === name);
+    });
+    if (location.hash.replace(/^#/, '') !== name) {
+      history.replaceState(null, '', `#${name}`);
+    }
+  }
+
+  document.querySelectorAll('nav.tabs button').forEach((btn) => {
+    btn.addEventListener('click', () => activate(btn.dataset.tab));
+  });
+  window.addEventListener('hashchange', () => activate(location.hash.replace(/^#/, '')));
+
+  // ============================================================
+  // Boot
+  // ============================================================
+  ctaButton.init();
+  donationArray.init();
+  emailWrapper.init();
+  activate(location.hash.replace(/^#/, '') || DEFAULT_TAB);
 })();
 </script>
 </body>
