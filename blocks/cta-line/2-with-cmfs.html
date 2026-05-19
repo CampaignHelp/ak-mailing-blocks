@@ -1,0 +1,73 @@
+<!--
+  CTA Line — Tier 2: Wired to Custom Mailing Fields
+  Your team edits these from the AK Compose screen:
+    cta_line_text             — headline text
+    cta_line_button_label     — button text
+    cta_line_button_url       — button link
+    cta_line_bg_color         — strip background (hex, e.g. #f5f6f8)
+    cta_line_text_color       — headline text color (hex)
+    cta_line_button_bg_color  — button background (hex)
+    cta_line_button_text_color — button text color (hex)
+  See README.md for one-time admin setup instructions.
+-->
+<!--[if !mso]><!-->
+<style>
+  @media only screen and (max-width: 480px) {
+    .ak-cta-line-cell {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+      padding: 8px 0 !important;
+    }
+  }
+</style>
+<!--<![endif]-->
+<table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 24px auto;">
+  <tr>
+    <td style="background: {{ custom_fields.cta_line_bg_color }}; padding: 20px 24px; border-radius: 4px;">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <!-- Headline -->
+          <td class="ak-cta-line-cell" valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; color: {{ custom_fields.cta_line_text_color }}; line-height: 1.3;">
+            {{ custom_fields.cta_line_text }}
+          </td>
+          <!-- Button -->
+          <td class="ak-cta-line-cell" valign="middle" align="right" width="160" style="width: 160px;">
+            <!--[if mso]>
+            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+              href="{{ custom_fields.cta_line_button_url }}"
+              style="height:40px; v-text-anchor:middle; width:140px;"
+              arcsize="10%"
+              stroke="f"
+              fillcolor="{{ custom_fields.cta_line_button_bg_color }}">
+              <w:anchorlock/>
+              <center style="color:{{ custom_fields.cta_line_button_text_color }}; font-family:Helvetica,Arial,sans-serif; font-size:14px; font-weight:bold;">{{ custom_fields.cta_line_button_label }}</center>
+            </v:roundrect>
+            <![endif]-->
+            <!--[if !mso]><!-->
+            <a href="{{ custom_fields.cta_line_button_url }}"
+               target="_blank"
+               rel="noopener"
+               style="
+                 background-color: {{ custom_fields.cta_line_button_bg_color }};
+                 border-radius: 4px;
+                 color: {{ custom_fields.cta_line_button_text_color }};
+                 display: inline-block;
+                 font-family: Helvetica, Arial, sans-serif;
+                 font-size: 14px;
+                 font-weight: bold;
+                 line-height: 40px;
+                 min-height: 40px;
+                 width: 140px;
+                 text-align: center;
+                 text-decoration: none;
+                 -webkit-text-size-adjust: none;
+                 mso-hide: all;
+               ">{{ custom_fields.cta_line_button_label }}</a>
+            <!--<![endif]-->
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

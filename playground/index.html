@@ -125,13 +125,15 @@
   input[type="text"],
   input[type="url"],
   input[type="number"],
-  textarea {
+  textarea,
+  select {
     width: 100%;
     padding: 8px 10px;
     border: 1px solid var(--border);
     border-radius: 6px;
     font-family: inherit;
     font-size: 14px;
+    background: #fff;
   }
   textarea {
     resize: vertical;
@@ -141,10 +143,26 @@
   input[type="text"]:focus,
   input[type="url"]:focus,
   input[type="number"]:focus,
-  textarea:focus {
+  textarea:focus,
+  select:focus {
     outline: 2px solid var(--accent);
     outline-offset: -1px;
     border-color: var(--accent);
+  }
+  input[type="range"] {
+    width: 100%;
+  }
+  .range-row {
+    display: grid;
+    grid-template-columns: 1fr 56px;
+    gap: 10px;
+    align-items: center;
+  }
+  .range-row .range-value {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
   }
   input[type="color"] {
     width: 44px;
@@ -279,6 +297,7 @@
   <p>Configure a block, see it render live, copy the HTML, paste into your ActionKit mailing. <a href="https://github.com/CampaignHelp/ak-mailing-blocks" target="_blank" rel="noopener">View on GitHub</a></p>
   <nav class="tabs" role="tablist">
     <button type="button" role="tab" data-tab="cta-button">CTA button</button>
+    <button type="button" role="tab" data-tab="cta-line">CTA line</button>
     <button type="button" role="tab" data-tab="callout-box">Callout box</button>
     <button type="button" role="tab" data-tab="donation-array">Donation array</button>
     <button type="button" role="tab" data-tab="email-wrapper">Email wrapper</button>
@@ -323,6 +342,58 @@
           </div>
         </div>
       </fieldset>
+
+      <fieldset>
+        <legend>Shape</legend>
+        <div class="field">
+          <label for="cta-width-mode">Width</label>
+          <select id="cta-width-mode">
+            <option value="auto">Auto-fit to label (default)</option>
+            <option value="fixed">Fixed pixel width</option>
+            <option value="full">Full-width (600px max)</option>
+          </select>
+        </div>
+        <div class="field" id="cta-width-px-field" style="display: none;">
+          <label for="cta-width-px">Width (px)</label>
+          <input id="cta-width-px" type="number" value="200" min="80" max="600">
+        </div>
+        <div class="field">
+          <label for="cta-height">Height (px)</label>
+          <select id="cta-height">
+            <option value="40">40 (compact)</option>
+            <option value="48" selected>48 (default)</option>
+            <option value="56">56 (large)</option>
+            <option value="64">64 (chunky)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cta-radius">Corner radius (px)</label>
+          <select id="cta-radius">
+            <option value="0">0 (sharp)</option>
+            <option value="4" selected>4 (default)</option>
+            <option value="8">8 (soft)</option>
+            <option value="12">12 (rounded)</option>
+            <option value="999">Pill (max)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cta-font-size">Font size (px)</label>
+          <select id="cta-font-size">
+            <option value="14">14</option>
+            <option value="16" selected>16 (default)</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cta-align">Alignment</label>
+          <select id="cta-align">
+            <option value="left">Left</option>
+            <option value="center" selected>Center (default)</option>
+            <option value="right">Right</option>
+          </select>
+        </div>
+      </fieldset>
     </aside>
 
     <section class="preview-wrap">
@@ -331,7 +402,7 @@
           <h2>Live preview</h2>
           <span class="badge">600px email canvas</span>
         </div>
-        <iframe id="cta-preview-frame" class="preview-frame" title="Live preview" style="height: 160px;"></iframe>
+        <iframe id="cta-preview-frame" class="preview-frame" title="Live preview" style="height: 200px;"></iframe>
       </div>
       <div class="code-wrap">
         <div class="code-header">
@@ -339,6 +410,80 @@
           <button id="cta-copy-btn" class="copy-btn" type="button">Copy HTML</button>
         </div>
         <pre id="cta-code-output" class="code-output"></pre>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CTA LINE                                                     -->
+  <!-- ============================================================ -->
+  <div class="block-view" data-view="cta-line">
+    <aside class="panel">
+      <h2>CTA line</h2>
+
+      <fieldset>
+        <legend>Content</legend>
+        <div class="field">
+          <label for="cl-text">Headline</label>
+          <input id="cl-text" type="text" value="Keep the pressure on">
+        </div>
+        <div class="field">
+          <label for="cl-button-label">Button label</label>
+          <input id="cl-button-label" type="text" value="Take action">
+        </div>
+        <div class="field">
+          <label for="cl-button-url">Button URL</label>
+          <input id="cl-button-url" type="url" value="https://example.org">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Brand</legend>
+        <div class="field">
+          <label>Strip background</label>
+          <div class="color-row">
+            <input id="cl-bg-color" type="color" value="#f5f6f8">
+            <input id="cl-bg-color-hex" type="text" class="color-hex" value="#f5f6f8">
+          </div>
+        </div>
+        <div class="field">
+          <label>Headline text color</label>
+          <div class="color-row">
+            <input id="cl-text-color" type="color" value="#1a1d21">
+            <input id="cl-text-color-hex" type="text" class="color-hex" value="#1a1d21">
+          </div>
+        </div>
+        <div class="field">
+          <label>Button background</label>
+          <div class="color-row">
+            <input id="cl-button-bg" type="color" value="#1a57c2">
+            <input id="cl-button-bg-hex" type="text" class="color-hex" value="#1a57c2">
+          </div>
+        </div>
+        <div class="field">
+          <label>Button text</label>
+          <div class="color-row">
+            <input id="cl-button-text" type="color" value="#ffffff">
+            <input id="cl-button-text-hex" type="text" class="color-hex" value="#ffffff">
+          </div>
+        </div>
+      </fieldset>
+    </aside>
+
+    <section class="preview-wrap">
+      <div class="preview">
+        <div class="preview-header">
+          <h2>Live preview</h2>
+          <span class="badge">600px email canvas</span>
+        </div>
+        <iframe id="cl-preview-frame" class="preview-frame" title="Live preview" style="height: 200px;"></iframe>
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <h2>HTML output</h2>
+          <button id="cl-copy-btn" class="copy-btn" type="button">Copy HTML</button>
+        </div>
+        <pre id="cl-code-output" class="code-output"></pre>
       </div>
     </section>
   </div>
@@ -400,6 +545,38 @@
             <input id="cb-text-color-hex" type="text" class="color-hex" value="#ffffff">
           </div>
         </div>
+        <div class="field">
+          <label>Card background</label>
+          <div class="color-row">
+            <input id="cb-card-bg" type="color" value="#ffffff">
+            <input id="cb-card-bg-hex" type="text" class="color-hex" value="#ffffff">
+          </div>
+        </div>
+        <div class="field">
+          <label>Title text color</label>
+          <div class="color-row">
+            <input id="cb-title-color" type="color" value="#1a1d21">
+            <input id="cb-title-color-hex" type="text" class="color-hex" value="#1a1d21">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Layout</legend>
+        <div class="field">
+          <label for="cb-width">Card width (px)</label>
+          <div class="range-row">
+            <input id="cb-width" type="range" min="180" max="280" step="10" value="220">
+            <span class="range-value" id="cb-width-value">220</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cb-side">Side</label>
+          <select id="cb-side">
+            <option value="right" selected>Right (default)</option>
+            <option value="left">Left</option>
+          </select>
+        </div>
       </fieldset>
     </aside>
 
@@ -440,6 +617,11 @@
           <input id="da-page-shortname" type="text" value="general">
           <div class="help">The "Short name" from your AK donation page settings — the value that appears in the URL.</div>
         </div>
+        <div class="field">
+          <label for="da-source">Source tracking parameter (optional)</label>
+          <input id="da-source" type="text" placeholder="e.g. spring2026">
+          <div class="help">If set, appends <code>&amp;source=&lt;value&gt;</code> to each button URL for analytics.</div>
+        </div>
       </fieldset>
 
       <fieldset>
@@ -458,10 +640,27 @@
             <input id="da-text-color-hex" type="text" class="color-hex" value="#ffffff">
           </div>
         </div>
+        <div class="field">
+          <label for="da-radius">Button corner radius (px)</label>
+          <select id="da-radius">
+            <option value="0">0 (sharp)</option>
+            <option value="4" selected>4 (default)</option>
+            <option value="8">8 (soft)</option>
+            <option value="12">12 (rounded)</option>
+            <option value="999">Pill (max)</option>
+          </select>
+        </div>
       </fieldset>
 
       <fieldset>
         <legend>Amounts</legend>
+        <div class="field">
+          <label for="da-count">Number of buttons</label>
+          <select id="da-count">
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
         <div class="row da-amounts-header">
           <div class="row-label"></div>
           <div class="row-label da-amounts-col">Amount ($)</div>
@@ -478,7 +677,27 @@
           <div class="row-label">Button 3</div>
           <input id="da-amt-3" type="number" value="100" min="1" placeholder="Amount">
         </div>
+        <div class="row" id="da-row-4" style="display: none;">
+          <div class="row-label">Button 4</div>
+          <input id="da-amt-4" type="number" value="250" min="1" placeholder="Amount">
+        </div>
         <div class="help">Each button shows <code>$&lt;amount&gt;</code> and donates that amount.</div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Optional "Other" button</legend>
+        <div class="field">
+          <label for="da-other-enabled">Append an "Other" button</label>
+          <select id="da-other-enabled">
+            <option value="off" selected>No</option>
+            <option value="on">Yes</option>
+          </select>
+          <div class="help">Links to the donation page with no amount prefilled, letting donors choose their own amount.</div>
+        </div>
+        <div class="field" id="da-other-label-field" style="display: none;">
+          <label for="da-other-label">"Other" button label</label>
+          <input id="da-other-label" type="text" value="Other">
+        </div>
       </fieldset>
     </aside>
 
@@ -516,7 +735,14 @@
         <div class="field">
           <label for="ew-logo-url">Logo URL</label>
           <input id="ew-logo-url" type="url" value="https://example.org/logo.png">
-          <div class="help">Hosted PNG or SVG, ~360px wide for retina at 180px display.</div>
+          <div class="help">Hosted PNG or SVG. Width below sets the display size.</div>
+        </div>
+        <div class="field">
+          <label for="ew-logo-width">Logo width (px)</label>
+          <div class="range-row">
+            <input id="ew-logo-width" type="range" min="120" max="240" step="10" value="180">
+            <span class="range-value" id="ew-logo-width-value">180</span>
+          </div>
         </div>
         <div class="field">
           <label for="ew-mailing-address">Mailing address</label>
@@ -533,7 +759,30 @@
             <input id="ew-brand-color" type="color" value="#1a57c2">
             <input id="ew-brand-color-hex" type="text" class="color-hex" value="#1a57c2">
           </div>
-          <div class="help">4px bar that sits under the logo across the whole header.</div>
+        </div>
+        <div class="field">
+          <label for="ew-accent-height">Accent bar height (px)</label>
+          <select id="ew-accent-height">
+            <option value="0">0 (hide)</option>
+            <option value="2">2 (subtle)</option>
+            <option value="4" selected>4 (default)</option>
+            <option value="8">8 (bold)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Page background</label>
+          <div class="color-row">
+            <input id="ew-page-bg" type="color" value="#f0f0f0">
+            <input id="ew-page-bg-hex" type="text" class="color-hex" value="#f0f0f0">
+          </div>
+          <div class="help">The color around the 600px email card.</div>
+        </div>
+        <div class="field">
+          <label>Footer background</label>
+          <div class="color-row">
+            <input id="ew-footer-bg" type="color" value="#f5f5f5">
+            <input id="ew-footer-bg-hex" type="text" class="color-hex" value="#f5f5f5">
+          </div>
         </div>
       </fieldset>
 
@@ -660,25 +909,53 @@ ${blockHtml.replace(/&amp;/g, '&')}
         url: $('cta-url').value || 'https://example.org',
         bg: $('cta-bg-color').value,
         text: $('cta-text-color').value,
+        widthMode: $('cta-width-mode').value,
+        widthPx: parseInt($('cta-width-px').value, 10) || 200,
+        height: parseInt($('cta-height').value, 10) || 48,
+        radius: parseInt($('cta-radius').value, 10) || 4,
+        fontSize: parseInt($('cta-font-size').value, 10) || 16,
+        align: $('cta-align').value,
       };
     }
 
     function buildHtml(s) {
       const href = htmlAttr(s.url);
       const label = htmlText(s.label);
+      // For VML, we always need a fixed pixel width. Auto-fit uses 200 as a
+      // sane default; "full" caps at 600.
+      const vmlWidth = s.widthMode === 'fixed' ? s.widthPx : (s.widthMode === 'full' ? 600 : 200);
+      // For the a-tag, width depends on mode.
+      let widthCss = '';
+      let paddingCss = '';
+      if (s.widthMode === 'fixed') {
+        widthCss = `\n           width: ${s.widthPx}px;`;
+      } else if (s.widthMode === 'full') {
+        widthCss = `\n           width: 100%;\n           max-width: 600px;\n           box-sizing: border-box;`;
+      } else {
+        paddingCss = `\n           padding: 0 28px;`;
+      }
+      // Pill radius caps at half the height (renders as a true pill).
+      const effectiveRadius = s.radius >= 999 ? Math.round(s.height / 2) : s.radius;
+      // VML arcsize is a percentage of half the shorter side.
+      const arcsizePct = Math.min(50, Math.round((effectiveRadius / s.height) * 100));
+      const arcsize = `${arcsizePct}%`;
+      const tableStyle = s.widthMode === 'full'
+        ? 'width: 100%; margin: 24px auto;'
+        : 'margin: 24px auto;';
+      const tableWidth = s.widthMode === 'full' ? 'width="100%"' : '';
       return `<!-- CTA Button — generated by ak-mailing-blocks playground -->
-<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto;">
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="${s.align}" ${tableWidth} style="${tableStyle}">
   <tr>
-    <td align="center">
+    <td align="${s.align}">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
         href="${href}"
-        style="height:48px; v-text-anchor:middle; width:200px;"
-        arcsize="8%"
+        style="height:${s.height}px; v-text-anchor:middle; width:${vmlWidth}px;"
+        arcsize="${arcsize}"
         stroke="f"
         fillcolor="${s.bg}">
         <w:anchorlock/>
-        <center style="color:${s.text}; font-family:Helvetica,Arial,sans-serif; font-size:16px; font-weight:bold;">${label}</center>
+        <center style="color:${s.text}; font-family:Helvetica,Arial,sans-serif; font-size:${s.fontSize}px; font-weight:bold;">${label}</center>
       </v:roundrect>
       <![endif]-->
       <!--[if !mso]><!-->
@@ -687,15 +964,14 @@ ${blockHtml.replace(/&amp;/g, '&')}
          rel="noopener"
          style="
            background-color: ${s.bg};
-           border-radius: 4px;
+           border-radius: ${effectiveRadius}px;
            color: ${s.text};
            display: inline-block;
            font-family: Helvetica, Arial, sans-serif;
-           font-size: 16px;
+           font-size: ${s.fontSize}px;
            font-weight: bold;
-           line-height: 48px;
-           min-height: 48px;
-           padding: 0 28px;
+           line-height: ${s.height}px;
+           min-height: ${s.height}px;${widthCss}${paddingCss}
            text-align: center;
            text-decoration: none;
            -webkit-text-size-adjust: none;
@@ -711,13 +987,124 @@ ${blockHtml.replace(/&amp;/g, '&')}
       const html = buildHtml(readState());
       $('cta-preview-frame').srcdoc = wrapFragmentForPreview(html);
       $('cta-code-output').textContent = html;
+      // Show/hide fixed-width input depending on mode
+      $('cta-width-px-field').style.display = $('cta-width-mode').value === 'fixed' ? '' : 'none';
     }
 
     function init() {
       bindColorPair('cta-bg-color', 'cta-bg-color-hex', render);
       bindColorPair('cta-text-color', 'cta-text-color-hex', render);
-      ['cta-label', 'cta-url'].forEach((id) => $(id).addEventListener('input', render));
+      ['cta-label', 'cta-url', 'cta-width-mode', 'cta-width-px', 'cta-height', 'cta-radius', 'cta-font-size', 'cta-align']
+        .forEach((id) => {
+          const el = $(id);
+          el.addEventListener('input', render);
+          el.addEventListener('change', render);
+        });
       bindCopyButton('cta-copy-btn', () => $('cta-code-output').textContent);
+      render();
+    }
+
+    return { init };
+  })();
+
+  // ============================================================
+  // Block: CTA line
+  // ============================================================
+  const ctaLine = (() => {
+    function readState() {
+      return {
+        text: $('cl-text').value || 'Keep the pressure on',
+        buttonLabel: $('cl-button-label').value || 'Take action',
+        buttonUrl: $('cl-button-url').value || 'https://example.org',
+        bg: $('cl-bg-color').value,
+        textColor: $('cl-text-color').value,
+        buttonBg: $('cl-button-bg').value,
+        buttonText: $('cl-button-text').value,
+      };
+    }
+
+    function buildHtml(s) {
+      const text = htmlText(s.text);
+      const label = htmlText(s.buttonLabel);
+      const href = htmlAttr(s.buttonUrl);
+      return `<!-- CTA Line — generated by ak-mailing-blocks playground -->
+<!--[if !mso]><!-->
+<style>
+  @media only screen and (max-width: 480px) {
+    .ak-cta-line-cell {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+      padding: 8px 0 !important;
+    }
+  }
+</style>
+<!--<![endif]-->
+<table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 24px auto;">
+  <tr>
+    <td style="background: ${s.bg}; padding: 20px 24px; border-radius: 4px;">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <!-- Headline -->
+          <td class="ak-cta-line-cell" valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; color: ${s.textColor}; line-height: 1.3;">
+            ${text}
+          </td>
+          <!-- Button -->
+          <td class="ak-cta-line-cell" valign="middle" align="right" width="160" style="width: 160px;">
+            <!--[if mso]>
+            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+              href="${href}"
+              style="height:40px; v-text-anchor:middle; width:140px;"
+              arcsize="10%"
+              stroke="f"
+              fillcolor="${s.buttonBg}">
+              <w:anchorlock/>
+              <center style="color:${s.buttonText}; font-family:Helvetica,Arial,sans-serif; font-size:14px; font-weight:bold;">${label}</center>
+            </v:roundrect>
+            <![endif]-->
+            <!--[if !mso]><!-->
+            <a href="${href}"
+               target="_blank"
+               rel="noopener"
+               style="
+                 background-color: ${s.buttonBg};
+                 border-radius: 4px;
+                 color: ${s.buttonText};
+                 display: inline-block;
+                 font-family: Helvetica, Arial, sans-serif;
+                 font-size: 14px;
+                 font-weight: bold;
+                 line-height: 40px;
+                 min-height: 40px;
+                 width: 140px;
+                 text-align: center;
+                 text-decoration: none;
+                 -webkit-text-size-adjust: none;
+                 mso-hide: all;
+               ">${label}</a>
+            <!--<![endif]-->
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>`;
+    }
+
+    function render() {
+      const html = buildHtml(readState());
+      $('cl-preview-frame').srcdoc = wrapFragmentForPreview(html);
+      $('cl-code-output').textContent = html;
+    }
+
+    function init() {
+      bindColorPair('cl-bg-color', 'cl-bg-color-hex', render);
+      bindColorPair('cl-text-color', 'cl-text-color-hex', render);
+      bindColorPair('cl-button-bg', 'cl-button-bg-hex', render);
+      bindColorPair('cl-button-text', 'cl-button-text-hex', render);
+      ['cl-text', 'cl-button-label', 'cl-button-url']
+        .forEach((id) => $(id).addEventListener('input', render));
+      bindCopyButton('cl-copy-btn', () => $('cl-code-output').textContent);
       render();
     }
 
@@ -738,18 +1125,22 @@ ${blockHtml.replace(/&amp;/g, '&')}
         buttonUrl: $('cb-button-url').value || 'https://example.org',
         brand: $('cb-brand-color').value,
         textColor: $('cb-text-color').value,
+        cardBg: $('cb-card-bg').value,
+        titleColor: $('cb-title-color').value,
+        width: parseInt($('cb-width').value, 10) || 220,
+        side: $('cb-side').value,
       };
     }
 
-    function imageRow(url, alt) {
+    function imageRow(url, alt, width) {
       if (!url) return '';
       return `  <!-- Image -->
   <tr>
     <td style="padding: 0;">
       <img src="${htmlAttr(url)}"
            alt="${htmlAttr(alt)}"
-           width="220"
-           style="display: block; width: 100%; max-width: 220px; height: auto; border: 0;">
+           width="${width}"
+           style="display: block; width: 100%; max-width: ${width}px; height: auto; border: 0;">
     </td>
   </tr>
 `;
@@ -770,6 +1161,9 @@ ${blockHtml.replace(/&amp;/g, '&')}
       const title = htmlText(s.title || 'Callout title');
       const buttonLabel = htmlText(s.buttonLabel);
       const buttonHref = htmlAttr(s.buttonUrl);
+      const buttonWidth = s.width - 32; // 16px padding each side
+      const isRight = s.side === 'right';
+      const margin = isRight ? '0 0 16px 16px' : '0 16px 16px 0';
       return `<!-- Callout Box — generated by ak-mailing-blocks playground -->
 <!--[if !mso]><!-->
 <style>
@@ -786,19 +1180,19 @@ ${blockHtml.replace(/&amp;/g, '&')}
 <!--<![endif]-->
 <table class="ak-callout-box"
        role="presentation"
-       align="right"
-       width="220"
+       align="${s.side}"
+       width="${s.width}"
        cellspacing="0"
        cellpadding="0"
        border="0"
-       style="width: 220px; float: right; margin: 0 0 16px 16px; background: #ffffff; border: 1px solid #e3e6ea; border-collapse: separate;">
+       style="width: ${s.width}px; float: ${s.side}; margin: ${margin}; background: ${s.cardBg}; border: 1px solid #e3e6ea; border-collapse: separate;">
   <!-- Brand accent bar -->
   <tr>
     <td style="background-color: ${s.brand}; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
   </tr>
-${imageRow(s.imageUrl, s.imageAlt)}  <!-- Title -->
+${imageRow(s.imageUrl, s.imageAlt, s.width)}  <!-- Title -->
   <tr>
-    <td style="padding: 16px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; color: #1a1d21; line-height: 1.3;">
+    <td style="padding: 16px 16px 0 16px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; color: ${s.titleColor}; line-height: 1.3;">
       ${title}
     </td>
   </tr>
@@ -808,7 +1202,7 @@ ${bodyRow(s.body)}  <!-- Button -->
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
         href="${buttonHref}"
-        style="height:40px; v-text-anchor:middle; width:188px;"
+        style="height:40px; v-text-anchor:middle; width:${buttonWidth}px;"
         arcsize="10%"
         stroke="f"
         fillcolor="${s.brand}">
@@ -877,13 +1271,20 @@ ${previewHtml}
       const html = buildHtml(state);
       $('cb-preview-frame').srcdoc = buildPreviewDoc(state, html);
       $('cb-code-output').textContent = html;
+      $('cb-width-value').textContent = state.width;
     }
 
     function init() {
       bindColorPair('cb-brand-color', 'cb-brand-color-hex', render);
       bindColorPair('cb-text-color', 'cb-text-color-hex', render);
-      ['cb-title', 'cb-body', 'cb-image-url', 'cb-image-alt', 'cb-button-label', 'cb-button-url']
-        .forEach((id) => $(id).addEventListener('input', render));
+      bindColorPair('cb-card-bg', 'cb-card-bg-hex', render);
+      bindColorPair('cb-title-color', 'cb-title-color-hex', render);
+      ['cb-title', 'cb-body', 'cb-image-url', 'cb-image-alt', 'cb-button-label', 'cb-button-url', 'cb-width', 'cb-side']
+        .forEach((id) => {
+          const el = $(id);
+          el.addEventListener('input', render);
+          el.addEventListener('change', render);
+        });
       bindCopyButton('cb-copy-btn', () => $('cb-code-output').textContent);
       render();
     }
@@ -896,28 +1297,46 @@ ${previewHtml}
   // ============================================================
   const donationArray = (() => {
     function readState() {
+      const count = parseInt($('da-count').value, 10) || 3;
+      const otherEnabled = $('da-other-enabled').value === 'on';
+      const indexes = [];
+      for (let i = 1; i <= count; i++) indexes.push(i);
       return {
         subdomain: $('da-subdomain').value.trim() || 'yourorg',
         slug: $('da-page-shortname').value.trim() || 'general',
+        source: $('da-source').value.trim(),
         bg: $('da-bg-color').value,
         text: $('da-text-color').value,
-        buttons: [1, 2, 3].map((i) => {
+        radius: parseInt($('da-radius').value, 10) || 4,
+        count,
+        otherEnabled,
+        otherLabel: $('da-other-label').value.trim() || 'Other',
+        buttons: indexes.map((i) => {
           const amt = parseInt($(`da-amt-${i}`).value, 10) || 0;
           return { amount: amt, label: `$${amt}` };
         }),
       };
     }
 
-    function buttonBlock(amount, label, subdomain, slug, bg, text) {
+    // Buttons get narrower when 4-up + Other to fit in 600px.
+    function buttonWidth(totalButtons) {
+      // 600 / n, minus 12px gutter between buttons
+      if (totalButtons <= 3) return 140;
+      if (totalButtons === 4) return 120;
+      return 100;
+    }
+
+    function buttonBlock(href, label, bg, text, width, radius) {
       const safeLabel = htmlText(label);
-      const href = `https://${htmlAttr(subdomain)}.actionkit.com/donate/${htmlAttr(slug)}/?amount=${amount}&amp;prefill=1`;
+      const effectiveRadius = radius >= 999 ? 24 : radius;
+      const arcsize = `${Math.min(50, Math.round((effectiveRadius / 48) * 100))}%`;
       return `    <!-- Button: ${safeLabel} -->
     <td align="center" valign="top" style="padding: 0 6px;">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
         href="${href}"
-        style="height:48px; v-text-anchor:middle; width:140px;"
-        arcsize="8%"
+        style="height:48px; v-text-anchor:middle; width:${width}px;"
+        arcsize="${arcsize}"
         stroke="f"
         fillcolor="${bg}">
         <w:anchorlock/>
@@ -930,7 +1349,7 @@ ${previewHtml}
          rel="noopener"
          style="
            background-color: ${bg};
-           border-radius: 4px;
+           border-radius: ${effectiveRadius}px;
            color: ${text};
            display: inline-block;
            font-family: Helvetica, Arial, sans-serif;
@@ -938,7 +1357,7 @@ ${previewHtml}
            font-weight: bold;
            line-height: 48px;
            min-height: 48px;
-           width: 140px;
+           width: ${width}px;
            text-align: center;
            text-decoration: none;
            -webkit-text-size-adjust: none;
@@ -949,9 +1368,25 @@ ${previewHtml}
     }
 
     function buildHtml(state) {
-      const buttons = state.buttons
-        .map((b) => buttonBlock(b.amount, b.label, state.subdomain, state.slug, state.bg, state.text))
-        .join('\n\n');
+      const total = state.count + (state.otherEnabled ? 1 : 0);
+      const width = buttonWidth(total);
+      const subdomain = htmlAttr(state.subdomain);
+      const slug = htmlAttr(state.slug);
+      const source = state.source ? `&amp;source=${htmlAttr(state.source)}` : '';
+
+      const amountButtons = state.buttons.map((b) => {
+        const href = `https://${subdomain}.actionkit.com/donate/${slug}/?amount=${b.amount}&amp;prefill=1${source}`;
+        return buttonBlock(href, b.label, state.bg, state.text, width, state.radius);
+      });
+
+      if (state.otherEnabled) {
+        // "Other" button: no amount param, donor picks at the donation page
+        const otherSource = state.source ? `?source=${htmlAttr(state.source)}` : '';
+        const otherHref = `https://${subdomain}.actionkit.com/donate/${slug}/${otherSource}`;
+        amountButtons.push(buttonBlock(otherHref, state.otherLabel, state.bg, state.text, width, state.radius));
+      }
+
+      const buttons = amountButtons.join('\n\n');
       return `<!-- Donation Array — generated by ak-mailing-blocks playground -->
 <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto;">
   <tr>
@@ -963,16 +1398,23 @@ ${buttons}
     }
 
     function render() {
-      const html = buildHtml(readState());
+      const state = readState();
+      const html = buildHtml(state);
       $('da-preview-frame').srcdoc = wrapFragmentForPreview(html);
       $('da-code-output').textContent = html;
+      $('da-row-4').style.display = state.count === 4 ? '' : 'none';
+      $('da-other-label-field').style.display = state.otherEnabled ? '' : 'none';
     }
 
     function init() {
       bindColorPair('da-bg-color', 'da-bg-color-hex', render);
       bindColorPair('da-text-color', 'da-text-color-hex', render);
-      ['da-subdomain', 'da-page-shortname', 'da-amt-1', 'da-amt-2', 'da-amt-3']
-        .forEach((id) => $(id).addEventListener('input', render));
+      ['da-subdomain', 'da-page-shortname', 'da-source', 'da-amt-1', 'da-amt-2', 'da-amt-3', 'da-amt-4', 'da-radius', 'da-count', 'da-other-enabled', 'da-other-label']
+        .forEach((id) => {
+          const el = $(id);
+          el.addEventListener('input', render);
+          el.addEventListener('change', render);
+        });
       bindCopyButton('da-copy-btn', () => $('da-code-output').textContent);
       render();
     }
@@ -988,8 +1430,12 @@ ${buttons}
       return {
         orgName: $('ew-org-name').value || 'Your Organization',
         logoUrl: $('ew-logo-url').value || 'https://example.org/logo.png',
+        logoWidth: parseInt($('ew-logo-width').value, 10) || 180,
         mailingAddress: $('ew-mailing-address').value || '123 Your Street, Your City, ST 00000',
         brandColor: $('ew-brand-color').value,
+        accentHeight: parseInt($('ew-accent-height').value, 10),
+        pageBg: $('ew-page-bg').value,
+        footerBg: $('ew-footer-bg').value,
         previewText: $('ew-preview-text').value,
         sampleBody: $('ew-sample-body').value,
       };
@@ -1006,6 +1452,14 @@ ${buttons}
         .filter((l) => l.trim().length > 0)
         .map((l) => htmlText(l))
         .join('<br>');
+      const accentRow = s.accentHeight > 0
+        ? `          <!-- Brand accent bar -->
+          <tr>
+            <td style="background-color: ${s.brandColor}; height: ${s.accentHeight}px; font-size: 0; line-height: 0;">&nbsp;</td>
+          </tr>
+
+`
+        : '';
       return `<!-- Email Wrapper — generated by ak-mailing-blocks playground -->
 <!DOCTYPE html>
 <html lang="en">
@@ -1016,12 +1470,12 @@ ${buttons}
   <meta name="supported-color-schemes" content="light">
   <title></title>
 </head>
-<body style="margin: 0; padding: 0; background-color: #f0f0f0; color: #222222; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+<body style="margin: 0; padding: 0; background-color: ${s.pageBg}; color: #222222; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
 
   {% if preview_text %}<span style="display:none;font-size:0px;color:#fff;line-height:0px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">{{ preview_text }}</span>{% endif %}
 
   <!-- Outer table: full-width background -->
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f0f0f0;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: ${s.pageBg};">
     <tr>
       <td align="center" style="padding: 24px 0;">
 
@@ -1031,16 +1485,11 @@ ${buttons}
           <!-- Header row: logo -->
           <tr>
             <td align="center" style="padding: 24px; background-color: #ffffff;">
-              <img src="${logoUrl}" alt="${orgNameAttr}" width="180" style="display: block; height: auto; max-width: 100%;">
+              <img src="${logoUrl}" alt="${orgNameAttr}" width="${s.logoWidth}" style="display: block; height: auto; max-width: 100%;">
             </td>
           </tr>
 
-          <!-- Brand accent bar -->
-          <tr>
-            <td style="background-color: ${s.brandColor}; height: 4px; font-size: 0; line-height: 0;">&nbsp;</td>
-          </tr>
-
-          <!-- Main content area -->
+${accentRow}          <!-- Main content area -->
           <tr>
             <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #222222; background-color: #ffffff;">
               {% block content %}{% endblock content %}
@@ -1049,7 +1498,7 @@ ${buttons}
 
           <!-- Footer -->
           <tr>
-            <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #666666; background-color: #f5f5f5; text-align: center;">
+            <td style="padding: 24px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.5; color: #666666; background-color: ${s.footerBg}; text-align: center;">
               <p style="margin: 0 0 12px 0;">${orgName}<br>${addressLines}</p>
               <p style="margin: 0;">{% include "unsubscribe.html" %}</p>
             </td>
@@ -1089,12 +1538,19 @@ ${buttons}
       const html = buildHtml(state);
       $('ew-preview-frame').srcdoc = buildPreviewDoc(state, html);
       $('ew-code-output').textContent = html;
+      $('ew-logo-width-value').textContent = state.logoWidth;
     }
 
     function init() {
       bindColorPair('ew-brand-color', 'ew-brand-color-hex', render);
-      ['ew-org-name', 'ew-logo-url', 'ew-mailing-address', 'ew-preview-text', 'ew-sample-body']
-        .forEach((id) => $(id).addEventListener('input', render));
+      bindColorPair('ew-page-bg', 'ew-page-bg-hex', render);
+      bindColorPair('ew-footer-bg', 'ew-footer-bg-hex', render);
+      ['ew-org-name', 'ew-logo-url', 'ew-logo-width', 'ew-mailing-address', 'ew-preview-text', 'ew-sample-body', 'ew-accent-height']
+        .forEach((id) => {
+          const el = $(id);
+          el.addEventListener('input', render);
+          el.addEventListener('change', render);
+        });
       bindCopyButton('ew-copy-btn', () => $('ew-code-output').textContent);
       render();
     }
@@ -1105,7 +1561,7 @@ ${buttons}
   // ============================================================
   // Tab router
   // ============================================================
-  const TABS = ['cta-button', 'callout-box', 'donation-array', 'email-wrapper'];
+  const TABS = ['cta-button', 'cta-line', 'callout-box', 'donation-array', 'email-wrapper'];
   const DEFAULT_TAB = 'cta-button';
 
   function activate(name) {
@@ -1131,6 +1587,7 @@ ${buttons}
   // Boot
   // ============================================================
   ctaButton.init();
+  ctaLine.init();
   calloutBox.init();
   donationArray.init();
   emailWrapper.init();

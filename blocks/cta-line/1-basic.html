@@ -1,0 +1,75 @@
+<!--
+  CTA Line — Tier 1: Paste and go
+
+  A horizontal headline + button strip. Lighter visual weight than a full
+  hero CTA — good for mid-body "remind me" or secondary asks. Headline
+  sits left, button sits right on desktop; both stack on mobile.
+
+  Five things you typically edit:
+    1. Headline: replace "Keep the pressure on" with your line
+    2. Button label: replace "Take action" with your CTA
+    3. Button URL: replace https://example.org with your link
+    4. Strip background: replace #f5f6f8 with your color (or 'transparent')
+    5. Button color: replace #1a57c2 (appears in fillcolor + a-tag background)
+-->
+<!--[if !mso]><!-->
+<style>
+  @media only screen and (max-width: 480px) {
+    .ak-cta-line-cell {
+      display: block !important;
+      width: 100% !important;
+      text-align: center !important;
+      padding: 8px 0 !important;
+    }
+  }
+</style>
+<!--<![endif]-->
+<table role="presentation" align="center" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 24px auto;">
+  <tr>
+    <td style="background: #f5f6f8; padding: 20px 24px; border-radius: 4px;">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <!-- Headline -->
+          <td class="ak-cta-line-cell" valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; color: #1a1d21; line-height: 1.3;">
+            Keep the pressure on
+          </td>
+          <!-- Button -->
+          <td class="ak-cta-line-cell" valign="middle" align="right" width="160" style="width: 160px;">
+            <!--[if mso]>
+            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+              href="https://example.org"
+              style="height:40px; v-text-anchor:middle; width:140px;"
+              arcsize="10%"
+              stroke="f"
+              fillcolor="#1a57c2">
+              <w:anchorlock/>
+              <center style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:14px; font-weight:bold;">Take action</center>
+            </v:roundrect>
+            <![endif]-->
+            <!--[if !mso]><!-->
+            <a href="https://example.org"
+               target="_blank"
+               rel="noopener"
+               style="
+                 background-color: #1a57c2;
+                 border-radius: 4px;
+                 color: #ffffff;
+                 display: inline-block;
+                 font-family: Helvetica, Arial, sans-serif;
+                 font-size: 14px;
+                 font-weight: bold;
+                 line-height: 40px;
+                 min-height: 40px;
+                 width: 140px;
+                 text-align: center;
+                 text-decoration: none;
+                 -webkit-text-size-adjust: none;
+                 mso-hide: all;
+               ">Take action</a>
+            <!--<![endif]-->
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
