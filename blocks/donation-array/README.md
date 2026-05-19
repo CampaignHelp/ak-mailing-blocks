@@ -16,7 +16,7 @@ A row of three donation buttons that links each one to an ActionKit donation pag
 <!--
   Donation Array — Tier 1: Paste and go
   Three edit points:
-    1. Page slug: replace YOUR_DONATION_PAGE in 3 places (one per button href)
+    1. Page short name: replace YOUR_DONATION_PAGE in 3 places (one per button href)
     2. Amounts: change the &amount= URL parameter AND the visible label for each button
     3. Subdomain: replace yourorg.actionkit.com with your org's AK subdomain (3 places)
 -->
@@ -139,7 +139,7 @@ Copy-paste source: [`1-basic.html`](./1-basic.html)
 
 ### What to edit
 
-- **Page slug** — find `YOUR_DONATION_PAGE` and replace it with your AK donation page's slug. It appears once per button (3 total). The slug is the page name you set when creating the donation page in AK admin.
+- **Page short name** — find `YOUR_DONATION_PAGE` and replace it with your AK donation page's short name. It appears once per button (3 total). The short name is the URL-safe identifier you set on the donation page settings screen in AK admin.
 - **Amounts** — for each button, change the `&amount=` value in the URL AND the visible label (e.g., `$25`). Each appears twice per button: once in the VML block for Outlook and once in the `<a>` tag.
 - **Subdomain** — replace `yourorg.actionkit.com` with your org's AK subdomain. Appears 3 times, one per button.
 
@@ -149,7 +149,7 @@ Copy-paste source: [`1-basic.html`](./1-basic.html)
 
 ### Why you'd want this
 
-With Tier 1, anyone changing the ask ladder has to edit HTML. Tier 2 wires amounts and the page slug to ActionKit Custom Mailing Fields (CMFs). Your fundraising team sets them on the Compose screen each mailing — no HTML needed.
+With Tier 1, anyone changing the ask ladder has to edit HTML. Tier 2 wires amounts and the page short name to ActionKit Custom Mailing Fields (CMFs). Your fundraising team sets them on the Compose screen each mailing — no HTML needed.
 
 ### One-time setup: create these Custom Mailing Fields
 
@@ -160,7 +160,7 @@ Your AK admin creates these once under **Mailings tab → Custom Mailing Fields 
 | `donation_amount_1` | Text | `25` |
 | `donation_amount_2` | Text | `50` |
 | `donation_amount_3` | Text | `100` |
-| `donation_page_slug` | Text | `your-donation-page` |
+| `donation_page_shortname` | Text | `your-donation-page` |
 
 Store amounts as plain integers (no dollar sign). The `$` is hard-coded in the HTML.
 
@@ -173,7 +173,7 @@ Store amounts as plain integers (no dollar sign). The `$` is hard-coded in the H
     donation_amount_1    — first button amount (integer, e.g. 25)
     donation_amount_2    — second button amount (integer, e.g. 50)
     donation_amount_3    — third button amount (integer, e.g. 100)
-    donation_page_slug   — AK donation page name (e.g. give-2026-spring)
+    donation_page_shortname   — AK donation page name (e.g. give-2026-spring)
   See README.md for one-time admin setup instructions.
 -->
 ```
@@ -182,7 +182,7 @@ Copy-paste source: [`2-with-cmfs.html`](./2-with-cmfs.html)
 
 ### Per-mailing workflow
 
-Each time you send a fundraising mailing, your team opens the mailing's Compose screen in AK, finds the four CMF fields, and types in the ask amounts and the donation page slug for that campaign. The HTML block pulls those values in automatically — no template editing required.
+Each time you send a fundraising mailing, your team opens the mailing's Compose screen in AK, finds the four CMF fields, and types in the ask amounts and the donation page short name for that campaign. The HTML block pulls those values in automatically — no template editing required.
 
 ---
 
@@ -218,7 +218,7 @@ Recipients who have never donated are handled cleanly: the `{% requires_value do
   {% requires_value %} tag above — AK will not render this block for them.
 
   One CMF required:
-    donation_page_slug — AK donation page name (reuse from Tier 2 if already created)
+    donation_page_shortname — AK donation page name (reuse from Tier 2 if already created)
 
   No amount CMFs needed — amounts are computed from donations.highest_previous_all.
 -->
@@ -236,7 +236,7 @@ Copy-paste source: [`3-personalized.html`](./3-personalized.html)
 
 ### Setup
 
-The only CMF you need is `donation_page_slug` — the same one from Tier 2. If you already created it, no additional admin setup is required. Tier 3 computes amounts from AK's built-in `donations.highest_previous_all` variable, which AK populates automatically from each recipient's donation history. No custom user fields.
+The only CMF you need is `donation_page_shortname` — the same one from Tier 2. If you already created it, no additional admin setup is required. Tier 3 computes amounts from AK's built-in `donations.highest_previous_all` variable, which AK populates automatically from each recipient's donation history. No custom user fields.
 
 ### Alternative: use AK's native suggested ask
 

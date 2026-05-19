@@ -4,7 +4,7 @@
     donation_amount_1    — first button amount (integer, e.g. 25)
     donation_amount_2    — second button amount (integer, e.g. 50)
     donation_amount_3    — third button amount (integer, e.g. 100)
-    donation_page_slug   — AK donation page name (e.g. give-2026-spring)
+    donation_page_shortname   — AK donation page name (e.g. give-2026-spring)
   See README.md for one-time admin setup instructions.
 -->
 <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 24px auto; width: 100%; max-width: 600px;">
@@ -14,7 +14,7 @@
     <td align="center" valign="top" style="padding: 0 4px;">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
-        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ custom_fields.donation_amount_1 }}&amp;prefill=1"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ custom_fields.donation_amount_1 }}&amp;prefill=1"
         style="height:48px; v-text-anchor:middle; width:180px;"
         arcsize="8%"
         stroke="f"
@@ -24,7 +24,7 @@
       </v:roundrect>
       <![endif]-->
       <!--[if !mso]><!-->
-      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ custom_fields.donation_amount_1 }}&amp;prefill=1"
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ custom_fields.donation_amount_1 }}&amp;prefill=1"
          target="_blank"
          rel="noopener"
          style="
@@ -50,7 +50,7 @@
     <td align="center" valign="top" style="padding: 0 4px;">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
-        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ custom_fields.donation_amount_2 }}&amp;prefill=1"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ custom_fields.donation_amount_2 }}&amp;prefill=1"
         style="height:48px; v-text-anchor:middle; width:180px;"
         arcsize="8%"
         stroke="f"
@@ -60,7 +60,7 @@
       </v:roundrect>
       <![endif]-->
       <!--[if !mso]><!-->
-      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ custom_fields.donation_amount_2 }}&amp;prefill=1"
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ custom_fields.donation_amount_2 }}&amp;prefill=1"
          target="_blank"
          rel="noopener"
          style="
@@ -86,7 +86,7 @@
     <td align="center" valign="top" style="padding: 0 4px;">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
-        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ custom_fields.donation_amount_3 }}&amp;prefill=1"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ custom_fields.donation_amount_3 }}&amp;prefill=1"
         style="height:48px; v-text-anchor:middle; width:180px;"
         arcsize="8%"
         stroke="f"
@@ -96,7 +96,7 @@
       </v:roundrect>
       <![endif]-->
       <!--[if !mso]><!-->
-      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ custom_fields.donation_amount_3 }}&amp;prefill=1"
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ custom_fields.donation_amount_3 }}&amp;prefill=1"
          target="_blank"
          rel="noopener"
          style="

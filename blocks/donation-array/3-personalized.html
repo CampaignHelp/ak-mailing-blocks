@@ -10,7 +10,7 @@
   {% requires_value %} tag above — AK will not render this block for them.
 
   One CMF required:
-    donation_page_slug — AK donation page name (reuse from Tier 2 if already created)
+    donation_page_shortname — AK donation page name (reuse from Tier 2 if already created)
 
   No amount CMFs needed — amounts are computed from donations.highest_previous_all.
 -->
@@ -21,7 +21,7 @@
     <td align="center" valign="top" style="padding: 0 4px;">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
-        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|floatformat:"0" }}&amp;prefill=1"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ donations.highest_previous_all|floatformat:"0" }}&amp;prefill=1"
         style="height:48px; v-text-anchor:middle; width:180px;"
         arcsize="8%"
         stroke="f"
@@ -31,7 +31,7 @@
       </v:roundrect>
       <![endif]-->
       <!--[if !mso]><!-->
-      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|floatformat:"0" }}&amp;prefill=1"
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ donations.highest_previous_all|floatformat:"0" }}&amp;prefill=1"
          target="_blank"
          rel="noopener"
          style="
@@ -57,7 +57,7 @@
     <td align="center" valign="top" style="padding: 0 4px;">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
-        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|multiply:"1.5"|floatformat:"0" }}&amp;prefill=1"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ donations.highest_previous_all|multiply:"1.5"|floatformat:"0" }}&amp;prefill=1"
         style="height:48px; v-text-anchor:middle; width:180px;"
         arcsize="8%"
         stroke="f"
@@ -67,7 +67,7 @@
       </v:roundrect>
       <![endif]-->
       <!--[if !mso]><!-->
-      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|multiply:"1.5"|floatformat:"0" }}&amp;prefill=1"
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ donations.highest_previous_all|multiply:"1.5"|floatformat:"0" }}&amp;prefill=1"
          target="_blank"
          rel="noopener"
          style="
@@ -93,7 +93,7 @@
     <td align="center" valign="top" style="padding: 0 4px;">
       <!--[if mso]>
       <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
-        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }}&amp;prefill=1"
+        href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }}&amp;prefill=1"
         style="height:48px; v-text-anchor:middle; width:180px;"
         arcsize="8%"
         stroke="f"
@@ -103,7 +103,7 @@
       </v:roundrect>
       <![endif]-->
       <!--[if !mso]><!-->
-      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_slug }}/?amount={{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }}&amp;prefill=1"
+      <a href="https://yourorg.actionkit.com/donate/{{ custom_fields.donation_page_shortname }}/?amount={{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }}&amp;prefill=1"
          target="_blank"
          rel="noopener"
          style="
