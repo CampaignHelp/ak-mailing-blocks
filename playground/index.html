@@ -383,28 +383,23 @@
 
       <fieldset>
         <legend>Amounts</legend>
+        <div class="row da-amounts-header">
+          <div class="row-label"></div>
+          <div class="row-label da-amounts-col">Amount ($)</div>
+        </div>
         <div class="row">
           <div class="row-label">Button 1</div>
-          <div class="color-row">
-            <input id="da-amt-1" type="number" value="25" min="1" placeholder="Amount">
-            <input id="da-label-1" type="text" value="$25" placeholder="Label">
-          </div>
+          <input id="da-amt-1" type="number" value="25" min="1" placeholder="Amount">
         </div>
         <div class="row">
           <div class="row-label">Button 2</div>
-          <div class="color-row">
-            <input id="da-amt-2" type="number" value="50" min="1" placeholder="Amount">
-            <input id="da-label-2" type="text" value="$50" placeholder="Label">
-          </div>
+          <input id="da-amt-2" type="number" value="50" min="1" placeholder="Amount">
         </div>
         <div class="row">
           <div class="row-label">Button 3</div>
-          <div class="color-row">
-            <input id="da-amt-3" type="number" value="100" min="1" placeholder="Amount">
-            <input id="da-label-3" type="text" value="$100" placeholder="Label">
-          </div>
+          <input id="da-amt-3" type="number" value="100" min="1" placeholder="Amount">
         </div>
-        <div class="help">Tip: leave the label empty to auto-fill as <code>$&lt;amount&gt;</code>.</div>
+        <div class="help">Each button shows <code>$&lt;amount&gt;</code> and donates that amount.</div>
       </fieldset>
     </aside>
 
@@ -655,7 +650,6 @@ ${blockHtml.replace(/&amp;/g, '&')}
   // ============================================================
   const donationArray = (() => {
     function readState() {
-      const labelOrDefault = (label, amount) => label || `$${amount}`;
       return {
         subdomain: $('da-subdomain').value.trim() || 'yourorg',
         slug: $('da-page-slug').value.trim() || 'general',
@@ -663,7 +657,7 @@ ${blockHtml.replace(/&amp;/g, '&')}
         text: $('da-text-color').value,
         buttons: [1, 2, 3].map((i) => {
           const amt = parseInt($(`da-amt-${i}`).value, 10) || 0;
-          return { amount: amt, label: labelOrDefault($(`da-label-${i}`).value.trim(), amt) };
+          return { amount: amt, label: `$${amt}` };
         }),
       };
     }
@@ -731,7 +725,7 @@ ${buttons}
     function init() {
       bindColorPair('da-bg-color', 'da-bg-color-hex', render);
       bindColorPair('da-text-color', 'da-text-color-hex', render);
-      ['da-subdomain', 'da-page-slug', 'da-amt-1', 'da-label-1', 'da-amt-2', 'da-label-2', 'da-amt-3', 'da-label-3']
+      ['da-subdomain', 'da-page-slug', 'da-amt-1', 'da-amt-2', 'da-amt-3']
         .forEach((id) => $(id).addEventListener('input', render));
       bindCopyButton('da-copy-btn', () => $('da-code-output').textContent);
       render();
