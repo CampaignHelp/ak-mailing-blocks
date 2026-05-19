@@ -357,9 +357,9 @@
           <div class="help">From <code>yourorg.actionkit.com</code></div>
         </div>
         <div class="field">
-          <label for="da-page-slug">Donation page slug</label>
-          <input id="da-page-slug" type="text" value="general">
-          <div class="help">The donation page name in your AK admin</div>
+          <label for="da-page-shortname">Donation page short name</label>
+          <input id="da-page-shortname" type="text" value="general">
+          <div class="help">The "Short name" from your AK donation page settings — the value that appears in the URL.</div>
         </div>
       </fieldset>
 
@@ -652,7 +652,7 @@ ${blockHtml.replace(/&amp;/g, '&')}
     function readState() {
       return {
         subdomain: $('da-subdomain').value.trim() || 'yourorg',
-        slug: $('da-page-slug').value.trim() || 'general',
+        slug: $('da-page-shortname').value.trim() || 'general',
         bg: $('da-bg-color').value,
         text: $('da-text-color').value,
         buttons: [1, 2, 3].map((i) => {
@@ -725,7 +725,7 @@ ${buttons}
     function init() {
       bindColorPair('da-bg-color', 'da-bg-color-hex', render);
       bindColorPair('da-text-color', 'da-text-color-hex', render);
-      ['da-subdomain', 'da-page-slug', 'da-amt-1', 'da-amt-2', 'da-amt-3']
+      ['da-subdomain', 'da-page-shortname', 'da-amt-1', 'da-amt-2', 'da-amt-3']
         .forEach((id) => $(id).addEventListener('input', render));
       bindCopyButton('da-copy-btn', () => $('da-code-output').textContent);
       render();
