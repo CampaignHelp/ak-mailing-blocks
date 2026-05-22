@@ -56,7 +56,7 @@ Want to help QA? See [`tests/QA-PROCEDURE.md`](tests/QA-PROCEDURE.md). About 90 
 
 ## Related repos
 
-- [ak-redirect-snippets](https://github.com/CampaignHelp/ak-redirect-snippets) — Django template snippets for ActionKit after-action redirect URLs.
+- [ak-redirect-blocks](https://github.com/CampaignHelp/ak-redirect-blocks) — Django template snippets for ActionKit after-action redirect URLs.
 
 ## Contributing
 
