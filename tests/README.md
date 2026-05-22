@@ -8,12 +8,15 @@ Fragments (CTA button, donation array) get wrapped in a minimal email canvas bef
 
 ### Run it
 
-The script depends on Playwright, which is installed in the `playwright-skill` global skill rather than this repo. Invoke it via that skill's runner:
+The script depends on Playwright. Install it once, then run from the repo root:
 
 ```bash
-cd ~/.claude/skills/playwright-skill
-node run.js /Users/jordankrueger/ClaudeCode/business/campaignhelp/ak-mailing-blocks/tests/screenshots.js
+npm install --no-save playwright
+npx playwright install chromium
+node tests/screenshots.js
 ```
+
+If you're invoking the script from a copy outside the repo, set `AK_REPO_ROOT` to the repo path so it can locate `blocks/`.
 
 Output goes to `blocks/<name>/screenshots/<filename>.png` at 2x density.
 

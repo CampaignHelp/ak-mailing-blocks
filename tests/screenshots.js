@@ -6,17 +6,17 @@
 //
 // Output: blocks/<name>/screenshots/<file>.png
 //
-// Run:
-//   cd ~/.claude/skills/playwright-skill && node run.js <repo>/tests/screenshots.js
+// Run from the repo root:
+//   node tests/screenshots.js
+//
+// Override the repo root by setting AK_REPO_ROOT if the script is being
+// invoked from a copy outside the repo.
 
 const { chromium } = require('playwright');
 const fsp = require('node:fs/promises');
 const path = require('node:path');
 
-// The playwright-skill runner copies this file to its own directory before
-// executing, so __dirname can't be trusted. Resolve from this file's known
-// location in the repo.
-const REPO_ROOT = '/Users/jordankrueger/ClaudeCode/business/campaignhelp/ak-mailing-blocks';
+const REPO_ROOT = process.env.AK_REPO_ROOT || path.resolve(__dirname, '..');
 const BLOCKS_DIR = path.join(REPO_ROOT, 'blocks');
 
 const EMAIL_WIDTH = 600;
