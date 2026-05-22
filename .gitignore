@@ -5,3 +5,6 @@ tests/.state.json
 tests/results-*.md
 tests/screenshots/
 .DS_Store
+
+# Local-only project notes (kept out of public history)
+CLAUDE.md
