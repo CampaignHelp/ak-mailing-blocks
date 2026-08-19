@@ -192,7 +192,7 @@ Each time you send a fundraising mailing, your team opens the mailing's Compose 
 
 Each recipient sees a row of three donation buttons built from their own highest prior gift across all currencies (`donations.highest_previous_all`). Button 1 matches their prior amount exactly; Button 2 is 1.5x that amount; Button 3 is 2x. Amounts are rounded to integers.
 
-Recipients who have never donated are handled cleanly: the `{% requires_value donations.highest_previous_all %}` tag on the first line tells AK to skip those recipients rather than send them a broken `$` button. It is a standalone tag with **no closing tag** — it applies to the whole mailing, not just this block. (Adding `{% endrequires_value %}` throws `Invalid block tag ... 'endrequires_value'`.) If you want the rest of the mailing to go to non-donors and only this block hidden, wrap the table in `{% if donations.highest_previous_all %}` / `{% endif %}` instead and drop the `requires_value` line.
+Recipients who have never donated are handled cleanly: the `{% requires_value donations.highest_previous_all %}` tag on the first line tells AK to skip those recipients rather than send them a broken `$` button. It is a standalone tag with **no closing tag** — it applies to the whole mailing, not just this block. (Adding `{% endrequires_value %}` throws `Invalid block tag ... 'endrequires_value'`. AK's [custom tag reference](https://roboticdogs.actionkit.com/docs/manual/guide/customtags.html) confirms it takes one argument and nothing else.) If you want the rest of the mailing to go to non-donors and only this block hidden, wrap the table in `{% if donations.highest_previous_all %}` / `{% endif %}` instead and drop the `requires_value` line.
 
 ### Who sees what
 
@@ -247,12 +247,60 @@ ${{ suggested_ask }}
 
 Tradeoff: AK's Suggested Ask feature is more sophisticated — it lets you configure exact ask ladders per donation page and handles rounding the way your org wants. But it requires upfront setup in AK admin. The multiplier approach this block uses (1x / 1.5x / 2x) is zero-setup and works out of the box. Pick whichever fits your workflow.
 
-AK's Suggested Ask documentation: [https://roboticdogs.actionkit.com/docs/manual/guide/mailings.html#suggested-ask](https://roboticdogs.actionkit.com/docs/manual/guide/mailings.html#suggested-ask)
+AK's Suggested Ask documentation: [Suggested Ask Rules](https://roboticdogs.actionkit.com/docs/manual/guide/fundraising_pagetools.html#suggested-ask-rules)
+
+## Tier 3b: Personalize, with a default for non-donors
+
+### What it does
+
+Same three personalized buttons as Tier 3, but nobody gets skipped. Recipients with prior giving history see amounts built from their highest prior gift; everyone else sees a default ladder. Use this when the donation array is part of a larger mailing that should reach your whole list.
+
+Instead of `{% requires_value %}`, the block opens with a `{% with %}` tag that sets a base amount, falling back to a number you choose when the recipient has no giving history:
+
+```html
+{% with base=donations.highest_previous_all|default:25 %}
+```
+
+Change the `25` to whatever base ask you want. Every button is computed from `base`, so the fallback ladder is base / 1.5x base / 2x base:
+
+| `base=` | Non-donor sees |
+|---|---|
+| 25 | $25 / $38 / $50 |
+| 50 | $50 / $75 / $100 |
+| 100 | $100 / $150 / $200 |
+
+Optional: if you have donors with very small prior gifts and don't want a `$3` button, add AK's `at_least` filter to each amount — `{{ base|multiply:"1.5"|at_least:"10"|floatformat:"0" }}` never renders below $10.
+
+The last line of the block is `{% endwith %}` — unlike `requires_value`, `with` **is** a block tag and does need its closing tag.
+
+### Who sees what
+
+| Recipient's highest prior gift | Button 1 | Button 2 (1.5x) | Button 3 (2x) |
+|---|---|---|---|
+| $25 | $25 | $38 | $50 |
+| $100 | $100 | $150 | $200 |
+| $500 | $500 | $750 | $1,000 |
+| (no prior gift) | $25 | $38 | $50 |
+
+### The HTML
+
+Copy-paste source: [`4-personalized-with-default.html`](./4-personalized-with-default.html)
+
+### Setup
+
+Identical to Tier 3: one CMF, `donation_page_shortname`. No amount CMFs, no user fields.
+
+### Tier 3 or Tier 3b?
+
+- **Tier 3** — the mailing is a donor-only appeal and non-donors should not receive it at all.
+- **Tier 3b** — the mailing goes to your whole list and the donation array is one section of it.
+
+---
 
 ### Testing before you send
 
 - Send a proof to someone known to have a prior donation — they should see their personalized ladder with the correct multiplied amounts.
-- Send a proof to someone who has never donated — the block should suppress entirely; the proof should render without any donation buttons from this block.
+- Send a proof to someone who has never donated — on Tier 3 the block should suppress entirely (no donation buttons from this block); on Tier 3b they should see the default ladder.
 - Use AK's proof tool with a specific test user to preview personalization before sending to the full list.
 
 ---
