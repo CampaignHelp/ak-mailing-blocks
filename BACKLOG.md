@@ -31,7 +31,7 @@ Blocks that have moved out of the backlog and into `blocks/`.
 - cta-button (tier 1, 2)
 - cta-line (tier 1, 2) — horizontal headline + button strip, stacks on mobile
 - callout-box (tier 1, 2) — right-aligned card with image, title, body, button; body copy wraps on desktop, stacks on mobile
-- donation-array (tier 1, 2, 3) — tighter spacing, uniform 140px buttons
+- donation-array (tier 1, 2, 3, 3b) — tighter spacing, uniform 140px buttons
 - email-wrapper (tier 1, 2) — includes built-in preview text support
 
 ## Shipped — tooling

@@ -284,7 +284,7 @@ The last line of the block is `{% endwith %}` — unlike `requires_value`, `with
 
 ### The HTML
 
-Copy-paste source: [`4-personalized-with-default.html`](./4-personalized-with-default.html)
+Copy-paste source: [`3b-personalized-with-default.html`](./3b-personalized-with-default.html)
 
 ### Setup
 
@@ -297,7 +297,7 @@ Identical to Tier 3: one CMF, `donation_page_shortname`. No amount CMFs, no user
 
 ---
 
-### Testing before you send
+## Testing before you send
 
 - Send a proof to someone known to have a prior donation — they should see their personalized ladder with the correct multiplied amounts.
 - Send a proof to someone who has never donated — on Tier 3 the block should suppress entirely (no donation buttons from this block); on Tier 3b they should see the default ladder.
