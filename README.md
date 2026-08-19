@@ -26,6 +26,8 @@ Each block ships in tiers so your whole team can use it. The simplest tier is pl
 | Tier 2 | Let your team edit it from the AK admin | Variable parts (amounts, colors, URLs) come from ActionKit Custom Mailing Fields. Anyone with AK admin access can update them from the Compose screen. One-time setup: someone creates the named fields. |
 | Tier 3 | Personalize to each recipient | Amounts or text are calculated from each recipient's donation history using AK's built-in donor data. No custom fields required. Works on any AK instance with donation history. |
 
+Some blocks add a lettered variant of a tier — a second file with the same setup burden but a different behaviour choice. Donation array's **Tier 3b** is Tier 3 with a default ladder for recipients who have never donated, instead of dropping them from the mailing.
+
 Not every block has all three tiers. Tier 1 always exists. Tiers 2 and 3 are offered where they add real value.
 
 ## Blocks
@@ -35,7 +37,7 @@ Not every block has all three tiers. Tier 1 always exists. Tiers 2 and 3 are off
 | [`blocks/cta-button`](blocks/cta-button/README.md) | Outlook-safe HTML call-to-action button with customizable label, URL, and color. | 1, 2 |
 | [`blocks/cta-line`](blocks/cta-line/README.md) | Horizontal headline + button strip. Lighter visual weight than a full hero CTA, good for mid-body asks. Stacks on mobile. | 1, 2 |
 | [`blocks/callout-box`](blocks/callout-box/README.md) | Right-aligned card with image, title, body, and button. Body copy wraps around it on desktop, stacks on mobile. | 1, 2 |
-| [`blocks/donation-array`](blocks/donation-array/README.md) | Three-button donation ask with amounts that can adapt to each recipient's giving history. | 1, 2, 3 |
+| [`blocks/donation-array`](blocks/donation-array/README.md) | Three-button donation ask with amounts that can adapt to each recipient's giving history. | 1, 2, 3, 3b |
 | [`blocks/email-wrapper`](blocks/email-wrapper/README.md) | Dark-mode-safe HTML email wrapper, installed via AK's Email Wrappers admin. Includes built-in preview text support. | 1, 2 |
 
 ## Email client support
