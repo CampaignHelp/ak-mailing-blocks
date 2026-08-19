@@ -7,7 +7,7 @@
     Button 3: 2x prior amount (rounded to integer)
 
   Recipients with no prior donation history are suppressed cleanly by the
-  {% requires_value %} tag above — AK will not render this block for them.
+  requires_value tag on the first line — AK skips those recipients entirely.
 
   One CMF required:
     donation_page_shortname — AK donation page name (reuse from Tier 2 if already created)
@@ -127,4 +127,3 @@
 
   </tr>
 </table>
-{% endrequires_value %}

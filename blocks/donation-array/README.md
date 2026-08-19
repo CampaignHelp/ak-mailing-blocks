@@ -192,7 +192,7 @@ Each time you send a fundraising mailing, your team opens the mailing's Compose 
 
 Each recipient sees a row of three donation buttons built from their own highest prior gift across all currencies (`donations.highest_previous_all`). Button 1 matches their prior amount exactly; Button 2 is 1.5x that amount; Button 3 is 2x. Amounts are rounded to integers.
 
-Recipients who have never donated are handled cleanly: the `{% requires_value donations.highest_previous_all %}` tag wraps the entire block, so AK suppresses it entirely for non-donors rather than rendering a broken `$` button.
+Recipients who have never donated are handled cleanly: the `{% requires_value donations.highest_previous_all %}` tag on the first line tells AK to skip those recipients rather than send them a broken `$` button. It is a standalone tag with **no closing tag** — it applies to the whole mailing, not just this block. (Adding `{% endrequires_value %}` throws `Invalid block tag ... 'endrequires_value'`.) If you want the rest of the mailing to go to non-donors and only this block hidden, wrap the table in `{% if donations.highest_previous_all %}` / `{% endif %}` instead and drop the `requires_value` line.
 
 ### Who sees what
 
@@ -215,7 +215,7 @@ Recipients who have never donated are handled cleanly: the `{% requires_value do
     Button 3: 2x prior amount (rounded to integer)
 
   Recipients with no prior donation history are suppressed cleanly by the
-  {% requires_value %} tag above — AK will not render this block for them.
+  requires_value tag on the first line — AK skips those recipients entirely.
 
   One CMF required:
     donation_page_shortname — AK donation page name (reuse from Tier 2 if already created)
@@ -229,7 +229,6 @@ Recipients who have never donated are handled cleanly: the `{% requires_value do
     <td><!-- Button 3: {{ donations.highest_previous_all|multiply:"2"|floatformat:"0" }} --></td>
   </tr>
 </table>
-{% endrequires_value %}
 ```
 
 Copy-paste source: [`3-personalized.html`](./3-personalized.html)
