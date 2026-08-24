@@ -1303,8 +1303,6 @@ ${previewHtml}
     function readState() {
       const count = parseInt($('da-count').value, 10) || 3;
       const otherEnabled = $('da-other-enabled').value === 'on';
-      const indexes = [];
-      for (let i = 1; i <= count; i++) indexes.push(i);
       return {
         subdomain: $('da-subdomain').value.trim() || 'yourorg',
         slug: $('da-page-shortname').value.trim() || 'general',
@@ -1315,8 +1313,8 @@ ${previewHtml}
         count,
         otherEnabled,
         otherLabel: $('da-other-label').value.trim() || 'Other',
-        buttons: indexes.map((i) => {
-          const amt = parseInt($(`da-amt-${i}`).value, 10) || 0;
+        buttons: Array.from({ length: count }, (_, i) => {
+          const amt = parseInt($(`da-amt-${i + 1}`).value, 10) || 0;
           return { amount: amt, label: `$${amt}` };
         }),
       };
